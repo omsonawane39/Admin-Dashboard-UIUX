@@ -11,6 +11,10 @@ Datatable.html
 Index3.html
 ![image](https://github.com/omsonawane39/Admin-Dashboard-UIUX/assets/98540552/657dc156-60fc-46d3-86b3-8fa214850dae)
 
+Database
+![WhatsApp Image 2024-02-21 at 12 25 44_70d2099c](https://github.com/omsonawane39/Admin-Dashboard-UIUX/assets/98540552/8033cee1-6fb1-4688-918b-5fae50214ed9)
+
+
 
 Participating in DARPG hackthons indicates involvement in initiatives related to the Department of Administrative Reforms and Public Grievances (DARPG) in India, which often focus on leveraging technology to enhance governance, public service delivery, and citizen engagement. Developing UI/UX for such initiatives involves creating user interfaces and experiences that prioritize ease of use, accessibility, and effectiveness in addressing public grievances and improving administrative processes.
 
