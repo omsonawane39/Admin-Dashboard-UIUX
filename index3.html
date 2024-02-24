@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Basic Page Info -->
+		<meta charset="utf-8" />
+		<title>DARPG - Bootstrap Admin Dashboard HTML Template</title>
+
+		<!-- Site favicon -->
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="vendors/images/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="vendors/images/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="vendors/images/favicon-16x16.png"
+		/>
+
+		<!-- Mobile Specific Metas -->
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1"
+		/>
+
+		<!-- Google Font -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="vendors/styles/core.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="vendors/styles/icon-font.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="src/plugins/datatables/css/responsive.bootstrap4.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="vendors/styles/style.css" />
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"
+		></script>
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-GBZ3SGGX85");
+		</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-NXZMQSS");
+		</script>
+		<!-- End Google Tag Manager -->
+	</head>
+	
+
+		<div class="header">
+			<div class="header-left">
+				<div class="menu-icon bi bi-list"
+	<i class="icon-copy bi bi-check-square"></i>
+									</div>
+				<div
+					class="search-toggle-icon bi bi-search"
+					data-toggle="header_search"
+				></div>
+				<div class="header-search">
+					
+					</form>
+				</div>
+			</div>
+			<div class="header-right">
+				<div class="dashboard-setting user-notification">
+					<div class="dropdown">
+						<a
+							class="dropdown-toggle no-arrow"
+							href="javascript:;"
+							data-toggle="right-sidebar"
+						>
+							<i class="dw dw-settings2"></i>
+						</a>
+					</div>
+				</div>
+				<div class="user-notification">
+					<div class="dropdown">
+						<a
+							class="dropdown-toggle no-arrow"
+							href="#"
+							role="button"
+							data-toggle="dropdown"
+						>
+							<i class="icon-copy dw dw-notification"></i>
+							<span class="badge notification-active"></span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<div class="notification-list mx-h-350 customscroll">
+								<ul>
+									<li>
+										<a href="#">
+											<img src="vendors/images/img.jpg" alt="" />
+											<h3>John Doe</h3>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed...
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<img src="vendors/images/photo1.jpg" alt="" />
+											<h3>Lea R. Frith</h3>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed...
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<img src="vendors/images/photo2.jpg" alt="" />
+											<h3>Erik L. Richards</h3>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed...
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<img src="vendors/images/photo3.jpg" alt="" />
+											<h3>John Doe</h3>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed...
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<img src="vendors/images/photo4.jpg" alt="" />
+											<h3>Renee I. Hansen</h3>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed...
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<img src="vendors/images/img.jpg" alt="" />
+											<h3>Vicki M. Coleman</h3>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed...
+											</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="user-info-dropdown">
+					<div class="dropdown">
+						<a
+							class="dropdown-toggle"
+							href="#"
+							role="button"
+							data-toggle="dropdown"
+						>
+							<span class="user-icon">
+								<img src="vendors/images/photo1.jpg" alt="" />
+							</span>
+			
+						</a>
+						<div
+							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+						>
+							<a class="dropdown-item" href="profile.html"
+								><i class="dw dw-user1"></i> Profile</a
+							>
+							<a class="dropdown-item" href="profile.html"
+								><i class="dw dw-settings2"></i> Setting</a
+							>
+							<a class="dropdown-item" href="faq.html"
+								><i class="dw dw-help"></i> Help</a
+							>
+							<a class="dropdown-item" href="login.html"
+								><i class="dw dw-logout"></i> Log Out</a
+							>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="right-sidebar">
+			<div class="sidebar-title">
+				<h3 class="weight-600 font-16 text-blue">
+					Layout Settings
+					<span class="btn-block font-weight-400 font-12"
+						>User Interface Settings</span
+					>
+				</h3>
+				<div class="close-sidebar" data-toggle="right-sidebar-close">
+					<i class="icon-copy ion-close-round"></i>
+				</div>
+			</div>
+			<div class="right-sidebar-body customscroll">
+				<div class="right-sidebar-body-content">
+					<h4 class="weight-600 font-18 pb-10">Header Background</h4>
+					<div class="sidebar-btn-group pb-30 mb-10">
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary header-white active"
+							>White</a
+						>
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary header-dark"
+							>Dark</a
+						>
+					</div>
+
+					<h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
+					<div class="sidebar-btn-group pb-30 mb-10">
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary sidebar-light"
+							>White</a
+						>
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary sidebar-dark active"
+							>Dark</a
+						>
+					</div>
+
+					<h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
+					<div class="sidebar-radio-group pb-10 mb-10">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebaricon-1"
+								name="menu-dropdown-icon"
+								class="custom-control-input"
+								value="icon-style-1"
+								checked=""
+							/>
+							<label class="custom-control-label" for="sidebaricon-1"
+								><i class="fa fa-angle-down"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebaricon-2"
+								name="menu-dropdown-icon"
+								class="custom-control-input"
+								value="icon-style-2"
+							/>
+							<label class="custom-control-label" for="sidebaricon-2"
+								><i class="ion-plus-round"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebaricon-3"
+								name="menu-dropdown-icon"
+								class="custom-control-input"
+								value="icon-style-3"
+							/>
+							<label class="custom-control-label" for="sidebaricon-3"
+								><i class="fa fa-angle-double-right"></i
+							></label>
+						</div>
+					</div>
+
+					<h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
+					<div class="sidebar-radio-group pb-30 mb-10">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-1"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-1"
+								checked=""
+							/>
+							<label class="custom-control-label" for="sidebariconlist-1"
+								><i class="ion-minus-round"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-2"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-2"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-2"
+								><i class="fa fa-circle-o" aria-hidden="true"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-3"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-3"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-3"
+								><i class="dw dw-check"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-4"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-4"
+								checked=""
+							/>
+							<label class="custom-control-label" for="sidebariconlist-4"
+								><i class="icon-copy dw dw-next-2"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-5"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-5"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-5"
+								><i class="dw dw-fast-forward-1"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-6"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-6"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-6"
+								><i class="dw dw-next"></i
+							></label>
+						</div>
+					</div>
+
+					<div class="reset-options pt-30 text-center">
+						<button class="btn btn-danger" id="reset-settings">
+							Reset Settings
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="left-side-bar">
+			<div class="brand-logo">
+				<a href="index.html">
+					<img src="src/images/darpg.png" alt="" class="dark-logo" />
+					<img
+						src="src/images/darpg.png"
+						alt=""
+						class="light-logo"
+					/>
+				</a>
+				<div class="close-sidebar" data-toggle="left-sidebar-close">
+					<i class="ion-close-round"></i>
+				</div>
+			</div>
+			<div class="menu-block customscroll">
+				<div class="sidebar-menu">
+					<ul id="accordion-menu">
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-house"></span
+								><span class="mtext">Home</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="index.html">Dashboard</a></li>
+								<li><a href="datatable.html">Filtered </a></li>
+								<li><a href="index3.html">Organization</a></li>
+								<li><a href="index3.html">Analytics</a></li>
+							</ul>
+						</li>
+						
+							<a href="calendar.html" class="dropdown-toggle no-arrow">
+								<span class="micon bi bi-calendar4-week"></span
+								><span class="mtext">Calendar</span>
+							</a>
+						</li>
+						
+						
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-pie-chart"></span
+								><span class="mtext">Charts</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="highchart.html">Top Indicator </a></li>
+								<li><a href="knob-chart.html">Tag By Teams </a></li>
+								<li><a href="jvectormap.html">Close Vs Pending</a></li>
+								<li><a href="apexcharts.html">Top Selector</a></li>
+							</ul>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="main-container">
+			<div class="pd-ltr-20 xs-pd-20-10">
+				<div class="min-height-200px">
+					<div class="page-header">
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="title">
+									<h4>Organization</h4>
+								</div>
+								<nav aria-label="breadcrumb" role="navigation">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item">
+											<a href="index.html">Home</a>
+										</li>
+										<li class="breadcrumb-item active" aria-current="page">
+											Organization
+										</li>
+									</ol>
+								</nav>
+							</div>
+							<div class="col-md-6 col-sm-12 text-right">
+								<div class="dropdown">
+									<a
+										class="btn btn-primary dropdown-toggle"
+										href="#"
+										role="button"
+										data-toggle="dropdown"
+									>
+										Apply Filter
+									</a>
+									<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+	<label class="switch">
+  <input type="checkbox" checked>
+  <span class="slider round"></span>
+</label>
+									<div class="dropdown-menu dropdown-menu-right">
+										<div><input type="checkbox" name="nbaTeam" value="bos" id="bos"><label for="bos">Top InDicators</label></div>
+    <div><input type="checkbox" name="nbaTeam" value="cle" id="cle"><label for="cle">Days & Allocation</label></div>
+    <div><input type="checkbox" name="nbaTeam" value="cha" id="cha"><label for="cha">Tags By Team</label></div>
+	 <div><input type="checkbox" name="nbaTeam" value="gsw" id="gsw"><label for="gsw">Text Peak From Gravience</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="hou" id="hou"><label for="hou">Close Vs Pending</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="ind" id="ind"><label for="ind">Place (Pincode/CiTY) </label></div>
+      <div><input type="checkbox" name="nbaTeam" value="mia" id="mia"><label for="mia">BSNL Call Center Feed Repoeting</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="mil" id="mil"><label for="mil">Timelines Treands</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="min" id="min"><label for="min">Appeals</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="nop" id="nop"><label for="nop">Pension Details</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="nyk" id="nyk"><label for="nyk">ATR</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="okc" id="okc"><label for="okc">User Personal Details</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="phi" id="phi"><label for="phi">Philadelphia 76ers</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="por" id="por"><label for="por">Dublicates</label></div>
+      <div><input type="checkbox" name="nbaTeam" value="sas" id="sas"><label for="sas">CPGRAMS</label></div>
+    <!-- Add more checkboxes here -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sample Table</title>
+</head>
+<style>
+.table-scroll {
+	position:relative;
+	max-width:1300px;
+	overflow:hidden;
+	border:1px solid #000;
+}
+.table-wrap {
+	width:100%;
+	overflow:auto;
+}
+.table-scroll table {
+	width:100%;
+	margin:auto;
+	border-collapse:separate;
+	border-spacing:0;
+}
+.table-scroll th, 
+.table-scroll td {
+	padding:4px 8px;
+	border:1px solid #000;
+	white-space:nowrap;
+	vertical-align:top;
+}
+.table-scroll thead, 
+.table-scroll tfoot {
+	background:#f9f9f9;
+}
+
+.clone {
+	position:absolute;
+	top:0;
+	left:0;
+	pointer-events:none;
+}
+.clone th, 
+.clone td {
+	visibility:hidden;
+}
+.clone td, 
+.clone th {
+	border-color:transparent;
+}
+.clone tbody th {
+	visibility:visible;
+	color:red;
+}
+.clone th.fixed-side {
+	border:1px solid #000;
+	background:#eee;
+	visibility:visible;
+}
+.clone tr:hover th.fixed-side {
+  background:pink;
+}
+.clone thead, 
+.clone tfoot{
+  background:transparent;
+}
+
+/*hover colors for indication*/
+table.main-table td, 
+table.main-table th {
+  position: relative;
+}
+table.main-table tbody tr:hover {
+  background-color: pink;
+}
+table.main-table td:hover::after,
+table.main-table thead th:not(:empty):hover::after,
+table.main-table td:focus::after,
+table.main-table thead th:not(:empty):focus::after { 
+  content: '';  
+  height: 5000px;
+  left: 0;
+  position: absolute;  
+  top: -5000px;
+  width: 100%;
+  z-index: -1;
+}
+
+table.main-table td:hover::after,
+table.main-table th:hover::after {
+  background-color: pink;
+}
+
+table.main-table td:focus::after,
+table.main-table th:focus::after {
+  background-color: lightblue;
+}
+
+
+
+        .dbgOuter{
+            border: solid 3px #888;
+            border-radius: 4px;
+            padding: 3px 8px 0px 14px;
+            width: 360px;
+            margin: 0 auto;
+            font-size: 10.5pt;
+        }
+        .dbgCont{
+            display: inline-block;
+            height: 24px;
+            margin-left: 6px;
+        }
+        /* Base for label styling */
+        .dbgCheck:not(:checked),
+        .dbgCheck:checked {
+            position: absolute;
+            left: -9999px;
+        }
+        .dbgCheck:not(:checked) + label,
+        .dbgCheck:checked + label {
+            display:inline-block;
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+        }
+
+        /* checkbox aspect */
+        .dbgCheck:not(:checked) + label:before,
+        .dbgCheck:checked + label:before {
+            content: '';
+            position: absolute;
+            left:0; top: 1px;
+            width: 17px; height: 17px;
+            border: 1px solid #aaa;
+            background: #f8f8f8;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 3px   rgba(0,0,0,.3)
+        }
+        /* checkmark aspect */
+        .dbgCheck:not(:checked) + label:after,
+        .dbgCheck:checked + label:after {
+            content: '✔';
+            position: absolute;
+            top: 2px; left: 5px;
+            font-size: 14px;
+            color: #09ad7e;
+            transition: all .2s;
+        }
+        /* checked mark aspect changes */
+        .dbgCheck:not(:checked) + label:after {
+            opacity: 0;
+            transform: scale(0);
+        }
+        .dbgCheck:checked + label:after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        /* disabled checkbox */
+        .dbgCheck:disabled:not(:checked) + label:before,
+        .dbgCheck:disabled:checked + label:before {
+            box-shadow: none;
+            border-color: #bbb;
+            background-color: #ddd;
+        }
+        .dbgCheck:disabled:checked + label:after {
+            color: #999;
+        }
+        .dbgCheck:disabled + label {
+            color: #aaa;
+        }
+        /* accessibility */
+        .dbgCheck:checked:focus + label:before,
+        .dbgCheck:not(:checked):focus + label:before {
+            border: 1px dotted blue;
+        }
+
+        .dbgCheck{
+            display:inline-block;
+            width:90px;
+            height:24px;
+            margin:1em;
+        }
+
+
+
+
+
+        /* Useless styles, just for demo design */
+
+        body {
+            font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif;
+            color: #666;
+        }
+        h1, h2 {
+            margin-bottom: 5px;
+            font-weight: normal;
+            text-align: center;
+        }
+        h2 {
+            margin: 5px 0 2em;
+            color: #aaa;
+        }
+        form {
+            width: 80px;
+            margin: 0 auto;
+        }
+        .txtcenter {
+            margin-top: 4em;
+            font-size: .9em;
+            text-align: center;
+            color: #aaa;
+        }
+        .copy {
+            margin-top: 2em;
+        }
+        .copy a {
+            text-decoration: none;
+            color: #4778d9;
+        }
+ .dbgOuter {
+            display: flex;
+            align-items: center;
+        }
+
+        .dbgCont {
+            margin-right: 10px; /* Adjust as needed */
+        }
+
+        /* Style for the search input and button */
+        input[type="text"] {
+            width: 200px; /* Adjust as needed */
+            margin-right: 10px; /* Adjust as needed */
+        }
+
+        button[type="submit"] {
+            background-color: #ddd; /* Adjust button style as needed */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+		  input[type="text"] {
+            width: 200px; /* Adjust the width of the search input */
+            margin-right: 10px;
+        }
+        .toggle-btn {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+		.checkbox-filter-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px; /* Adjust width as needed */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-right: 1px solid #ddd;
+  z-index: 1;
+}
+
+.myForm {
+  /* Styles for your checkbox form */
+}
+
+.box {
+  /* Styles for your checkbox box */
+}
+
+</style>
+
+   <div class="dbgOuter">
+    <div class="dbgCont">
+        <input type="checkbox" id="dbgTrace" class="dbgCheck" />
+        <label for="dbgTrace">Ministry</label>
+    </div>
+    <div class="dbgCont">
+        <input type="checkbox" id="dbgDebug" class="dbgCheck" />
+        <label for="dbgDebug">Level</label>
+    </div>
+    <div class="dbgCont">
+        <input type="checkbox" id="dbgInfo" class="dbgCheck" checked="checked" />
+        <label for="dbgInfo">Activity</label>
+    </div>
+    <div class="dbgCont">
+        <input type="checkbox" id="dbgWarn"  class="dbgCheck" />
+        <label for="dbgWarn">Pendency</label>
+    </div>
+    <input type="text" placeholder="Search Any" name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+		<br></input>
+        <button class="toggle-btn">Toggle</button>
+   </div>
+   
+   <style>
+   #outer-container {
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+#inner-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group {
+  margin-right: 20px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-group label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.checkbox-group label:before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 1px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.checkbox-group input[type="checkbox"]:checked + label:before {
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+
+.checkbox-group input[type="checkbox"]:checked + label:after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 11px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  position: absolute;
+  left: 5px;
+  bottom: 4px;
+  transform: rotate(45deg);
+}
+
+   </style>
+   <div class="footer-wrap pd-20 mb-20 card-box">
+<div id="outer-container">
+  <div id="inner-container">
+
+
+    <div class="checkbox-group">
+
+      <input type="checkbox" id="checkbox1">
+      <label for="checkbox1">ORG Code</label>
+    </div>
+	
+    <div class="checkbox-group">
+      <input type="checkbox" id="checkbox2">
+      <label for="checkbox2">Org Name</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="checkbox3">
+      <label for="checkbox3">Level</label>
+    </div>
+	<div class="checkbox-group">
+      <input type="checkbox" id="checkbox4">
+      <label for="checkbox4">Pending</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="checkbox5">
+      <label for="checkbox5">L1</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="checkbox6">
+      <label for="checkbox6">Opens</label>
+    </div>
+	<div class="checkbox-group">
+      <input type="checkbox" id="checkbox7">
+      <label for="checkbox7">Close</label>
+    </div>
+	<div class="checkbox-group">
+      <input type="checkbox" id="checkbox6">
+      <label for="checkbox6">Opens</label>
+    </div>
+	<div class="checkbox-group">
+      <input type="checkbox" id="checkbox7">
+      <label for="checkbox7">Close</label>
+    </div>
+	<div class="checkbox-group">
+      <input type="checkbox" id="checkbox7">
+      <label for="checkbox7">Close</label>
+    </div>
+	
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nested Multiselect</title>
+  <style>
+    .dropdown1 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      padding: 8px;
+      z-index: 1;
+    }
+
+    .dropdown-content label {
+      display: block;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="dropdown1">
+  <button onclick="toggleDropdown()">Select Options</button> <!-- Changed the text here -->
+  <div class="dropdown-content" id="dropdownContent">
+    <label><input type="checkbox" value="item1">Org Code</label>
+    <label><input type="checkbox" value="item2">Org Name</label>
+    <label><input type="checkbox" value="item3">Org Level</label>
+    <label><input type="checkbox" value="item4">L1 Code</label>
+	<label><input type="checkbox" value="item4">L1 Name</label>
+	<label><input type="checkbox" value="item4">L2 Code</label>
+	<label><input type="checkbox" value="item4">L3 Name</label>
+	<label><input type="checkbox" value="item4">L3 Code</label>
+	<label><input type="checkbox" value="item4">L4 Name</label>
+	<label><input type="checkbox" value="item4">L4 Code</label>
+	<label><input type="checkbox" value="item4">L5 Name</label>
+	<label><input type="checkbox" value="item4">L5 Code</label>
+	<label><input type="checkbox" value="item4">L6 Name</label>
+	<label><input type="checkbox" value="item4">L6 Code</label>
+    
+  </div>
+</div>
+
+<script>
+  function toggleDropdown() {
+    var dropdownContent = document.getElementById("dropdownContent");
+    dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
+  }
+
+  function toggleGroup(checkbox) {
+    var nestedContent = checkbox.parentElement.querySelector(".nested-content");
+    nestedContent.style.display = checkbox.checked ? "block" : "none";
+  }
+</script>
+
+</body>
+</html>
+
+	
+    <!-- Add more checkboxes as needed -->
+  </div>
+</div>
+</div>
+<div id="table-scroll" class="table-scroll">
+  <div class="table-wrap">
+    <table class="main-table">
+      <thead>
+        <tr>
+          <th class="fixed-side" scope="col" >ORG Code</th>
+          <th scope="col">ORG Name<br /><input autocomplete='off' class='filter' name='Search name' placeholder='ORG Name' data-col='name'/></th>
+          <th scope="col">LEVEL<br /><input autocomplete='off' class='filter' name='Search drink' placeholder='Level' data-col='drink'/></th>
+          <th scope="col">MS<br /><input autocomplete='off' class='filter' name='Search pizza' placeholder='Minstry & Officer' data-col='pizza'/></th>
+          <th scope="col">L1<br /><input autocomplete='off' class='filter' name='Search movie' placeholder='L1' data-col='movie'/></th>
+          <th scope="col">All Size<br /><input autocomplete='off' class='filter' name='Search movie' placeholder='all Size' data-col='scooter'/></th>
+          <th scope="col">PG Officer Name<br /><input autocomplete='off' class='filter' name='Search movie' placeholder='P O Name' data-col='car'/></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="fixed-side">PMOPG</th>
+          <td>Prime Ministers Office</td>
+          <td>1</td>
+          <td>M</td>
+          <td>1234</td>
+          <td>555544</td>
+          <td>Shri Arvind Kumar Singh</td>
+        </tr>
+        <tr>
+          <th class="fixed-side"><a href="file:///D:/Captan/UIUX%20HACKTHON%20WEB/LIKNU/index.html">LIKHNU</a></th>
+          <td>Chef Commistionas incom tax officer</td>
+          <td>2</td>
+          <td>M</td>
+          <td>234</td>
+          <td>324242</td>
+          <td>Smt. Deepika Patel</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">DEARBD</th>
+          <td>TDepartment of Financial Services</td>
+          <td>1</td>
+          <td>M</td>
+          <td>242424</td>
+          <td>77633663</td>
+          <td>Shri Rajesh Sharma</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">MOLBR</th>
+          <td>Ministry of Labour and Employment</td>
+          <td>1</td>
+          <td>S</td>
+          <td>2343</td>
+          <td>234242</td>
+          <td>Smt. Priya Dasgupta</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">CEPFO</th>
+          <td>Employees Provident Fund Organisation </td>
+          <td>1</td>
+          <td>S</td>
+          <td>2342</td>
+          <td>464646</td>
+          <td>Shri Sanjay Verma</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">CBODT</th>
+          <td>Central Board of Direct Taxes</td>
+          <td>1</td>
+          <td>M</td>
+          <td>4353</td>
+          <td>464645</td>
+          <td>Smt. Aarti Desai</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">MORLY</th>
+          <td>Ministry of Railways</td>
+          <td>1</td>
+          <td>M</td>
+          <td>3535</td>
+          <td>467688</td>
+          <td>Shri Anand Mishra</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">DPOST</th>
+          <td>Department of Posts</td>
+          <td>1</td>
+          <td>M</td>
+          <td>76554</td>
+          <td>5676787</td>
+          <td>Smt. Nisha Reddy</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">DOPPW</th>
+          <td>Department of Pension and Pensioners Welfare</td>
+          <td>2</td>
+          <td>M</td>
+          <td>456</td>
+          <td>65868</td>
+          <td>Shri Prakash Gupta</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">GOVGJ</th>
+          <td>Government of Gujarat</td>
+          <td>1</td>
+          <td>O</td>
+          <td>64</td>
+          <td>678699</td>
+          <td>Smt. Kavita Chatterjee</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">RBIBK</th>
+          <td>Reserve Bank of India</td>
+          <td>1</td>
+          <td>O</td>
+          <td>787</td>
+          <td>987897</td>
+          <td>Shri Rakesh Tiwari</td>
+        </tr>
+		<tr>
+          <th class="fixed-side">DOTEL</th>
+          <td>Department of Telecommunications</td>
+          <td>1</td>
+          <td>O</td>
+          <td>45</td>
+          <td>78979</td>
+          <td>Smt. Meera Iyer</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">MINHA</th>
+          <td>Ministry of Home Affairs</td>
+          <td>1</td>
+          <td>M</td>
+          <td>40</td>
+          <td>797979</td>
+          <td>Shri Ajay Singhania</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">DOAAC</th>
+          <td>Department of Agriculture and Farmers Welfare</td>
+          <td>1</td>
+          <td>O</td>
+          <td>5621</td>
+          <td>7897978</td>
+          <td>Smt. Sonali Dubey</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">SYSTE</th>
+          <td>DIRECTOR GENERAL OF INCOME TAX</td>
+          <td>1</td>
+          <td>S</td>
+          <td>111</td>
+          <td>79797</td>
+          <td>Shri Vikram Malhotra</td>
+        </tr>
+        <tr>
+		  <th class="fixed-side"><a href="file:///D:/Captan/UIUX%20HACKTHON%20WEB/SBIBK/index.html">SBIBK</a></th>
+          <td>State Bank of India</td>
+          <td>2</td>
+          <td>S</td>
+          <td>2312</td>
+          <td>576767</td>
+          <td>Smt. Neeta Banerjee</td>
+        </tr>
+        
+        <tr>
+          <th class="fixed-side">BOIBK</th>
+          <td>Bank of India</td>
+          <td>1</td>
+          <td>O</td>
+          <td>78999</td>
+          <td>567567</td>
+          <td>Smt. Tanvi Joshi</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">GOVMP</th>
+          <td>Government of Madhya Pradesh</td>
+          <td>1</td>
+          <td>M</td>
+          <td>77</td>
+          <td>5675</td>
+          <td>Shri Vivek Choudhury</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">IRSEC</th>
+          <td>IR Section Deptt of Financial Services</td>
+          <td>1</td>
+          <td>S</td>
+          <td>8</td>
+          <td>7898</td>
+          <td>Smt. Ananya Rao</td>
+        </tr>
+        <tr>
+          <th class="fixed-side">DOURO</th>
+          <td>Ministry of Housing and Urban Affairs</td>
+          <td>1</td>
+          <td>S</td>
+          <td>4</td>
+          <td>5676</td>
+          <td>Mr Om Sonawane</td>
+        </tr>
+        <tr>
+		
+		<div id="popupPanel" style="display: none;">
+          <th class="fixed-side">GOVMH</th>
+          <td>Government of Maharashtra</td>
+          <td>1</td>
+          <td>S</td>
+          <td>199999</td>
+          <td>56776786</td>
+          <td>Mr Suyash Yadav</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+
+          <th class="fixed-side">&nbsp;</th>
+          <td>Footer 2</td>
+          <td>Footer 3</td>
+          <td>Footer 4</td>
+          <td>Footer 5</td>
+          <td>Footer 6</td>
+          <td>Footer 7</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+</div>
+<script>
+
+	/* Sort function */
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("le-Table-1");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+
+  /* Search/filter function */
+  function filterTable(event) {
+    var filter = event.target.value.toUpperCase();
+    var rows = document.querySelector("#le-Table-1 tbody").rows;
+    
+    for (var i = 0; i < rows.length; i++) {
+        var firstCol = rows[i].cells[0].textContent.toUpperCase();
+        var secondCol = rows[i].cells[1].textContent.toUpperCase();
+      var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+      var sixthCol = rows[i].cells[5].textContent.toUpperCase();
+        if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }      
+    }
+}
+document.querySelector('#le-Input-1').addEventListener('keyup', filterTable, false);
+	
+function content(elem) {
+	}	
+	
+	
+	 /* checkbox filter */ 
+function filter_type(box) {
+			 var cbs = document.getElementsByTagName('input');
+			 var all_checked_types = [];
+			 for(var i=0; i < cbs.length; i++) {
+				 if(cbs[i].type == "checkbox") {
+						 if(cbs[i].name.match(/^filter/)) {
+								 if(cbs[i].checked) {
+									 all_checked_types.push(cbs[i].value);
+								  }
+							  }
+					   }
+			  }
+			 if (all_checked_types.length > 0) {
+				 $('#le-Table-1 tr').each(function (i, row) {
+					 var $tds = $(this).find('td')
+					 if ($tds.length) {
+						var type = $tds[2].innerText;
+						console.log(type)
+						if(!(type && all_checked_types.indexOf(type) >= 0)) {
+							$(this).hide();
+						 }
+						 else {
+							$(this).show();
+						 }
+					  }
+				  });
+				  
+			  }
+				else {
+					$('#le-Table-1 tr').each(function (i, row) {
+						var $tds = $(this).find('td'),
+						type = $tds.eq(2).text();
+						$(this).show();
+					 });
+				}
+				return true;
+			}
+	
+/* clickable row */
+	jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+</script>
+				
+				<div class="footer-wrap pd-20 mb-20 card-box">
+					DARPG ADMIN DASHBOARD
+					<a href="https://github.com/dropways" target="_blank"
+						>Om Sonawane</a
+					>
+				</div>
+			</div>
+		</div>
+	
+		<!-- js -->
+		<script src="vendors/scripts/core.js"></script>
+		<script src="vendors/scripts/script.min.js"></script>
+		<script src="vendors/scripts/process.js"></script>
+		<script src="vendors/scripts/layout-settings.js"></script>
+		<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+		<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+		<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+		<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+		<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+		<script src="vendors/scripts/dashboard.js"></script>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript
+			><iframe
+				src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS"
+				height="0"
+				width="0"
+				style="display: none; visibility: hidden"
+			></iframe
+		></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+	</body>
+</html>

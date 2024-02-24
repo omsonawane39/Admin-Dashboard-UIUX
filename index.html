@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Basic Page Info -->
+		<meta charset="utf-8" />
+		<title> Admin Dashboard</title>
+
+		<!-- Site favicon -->
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="vendors/images/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="vendors/images/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="vendors/images/favicon-16x16.png"
+		/>
+
+		<!-- Mobile Specific Metas -->
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1"
+		/>
+
+		<!-- Google Font -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="vendors/styles/core.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="vendors/styles/icon-font.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="src/plugins/datatables/css/responsive.bootstrap4.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="vendors/styles/style.css" />
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"
+		></script>
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-GBZ3SGGX85");
+		</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-NXZMQSS");
+		</script>
+		<!-- End Google Tag Manager -->
+		<body style="background-color: #b15cc2 ;">
+	</head>
+	<body>
+		
+		
+<div class="header">
+    <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+        <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div>
+
+        <div class="header-search">
+            <form>
+             
+<style>
+  body{
+    font-family:'Segoe UI', Roboto, Oxygen, Ubuntu,   Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.tags-input-wrapper{
+    background: transparent;
+    padding: 10px;
+    border-radius: 4px;
+    max-width: 400px;
+    border: 1px solid #ccc
+}
+.tags-input-wrapper input{
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 140px;
+    margin-left: 8px;
+}
+.tags-input-wrapper .tag{
+    display: inline-block;
+    background-color: #fa0e7e;
+    color: white;
+    border-radius: 40px;
+    padding: 0px 3px 0px 7px;
+    margin-right: 5px;
+    margin-bottom:5px;
+    box-shadow: 0 5px 15px -2px rgba(250 , 14 , 126 , .7)
+}
+.tags-input-wrapper .tag a {
+    margin: 0 7px 3px;
+    display: inline-block;
+    cursor: pointer;
+}
+</style>    
+
+
+    <input type="text" id="tag-input1">
+
+            </form>
+        </div>
+    </div>
+
+<script>
+(function(){
+
+    "use strict"
+
+    
+    // Plugin Constructor
+    var TagsInput = function(opts){
+        this.options = Object.assign(TagsInput.defaults , opts);
+        this.init();
+    }
+
+    // Initialize the plugin
+    TagsInput.prototype.init = function(opts){
+        this.options = opts ? Object.assign(this.options, opts) : this.options;
+
+        if(this.initialized)
+            this.destroy();
+            
+        if(!(this.orignal_input = document.getElementById(this.options.selector)) ){
+            console.error("tags-input couldn't find an element with the specified ID");
+            return this;
+        }
+
+        this.arr = [];
+        this.wrapper = document.createElement('div');
+        this.input = document.createElement('input');
+        init(this);
+        initEvents(this);
+
+        this.initialized =  true;
+        return this;
+    }
+
+    // Add Tags
+    TagsInput.prototype.addTag = function(string){
+
+        if(this.anyErrors(string))
+            return ;
+
+        this.arr.push(string);
+        var tagInput = this;
+
+        var tag = document.createElement('span');
+        tag.className = this.options.tagClass;
+        tag.innerText = string;
+
+        var closeIcon = document.createElement('a');
+        closeIcon.innerHTML = '&times;';
+        
+        // delete the tag when icon is clicked
+        closeIcon.addEventListener('click' , function(e){
+            e.preventDefault();
+            var tag = this.parentNode;
+
+            for(var i =0 ;i < tagInput.wrapper.childNodes.length ; i++){
+                if(tagInput.wrapper.childNodes[i] == tag)
+                    tagInput.deleteTag(tag , i);
+            }
+        })
+
+
+        tag.appendChild(closeIcon);
+        this.wrapper.insertBefore(tag , this.input);
+        this.orignal_input.value = this.arr.join(',');
+
+        return this;
+    }
+
+    // Delete Tags
+    TagsInput.prototype.deleteTag = function(tag , i){
+        tag.remove();
+        this.arr.splice( i , 1);
+        this.orignal_input.value =  this.arr.join(',');
+        return this;
+    }
+
+    // Make sure input string have no error with the plugin
+    TagsInput.prototype.anyErrors = function(string){
+        if( this.options.max != null && this.arr.length >= this.options.max ){
+            console.log('max tags limit reached');
+            return true;
+        }
+        
+        if(!this.options.duplicate && this.arr.indexOf(string) != -1 ){
+            console.log('duplicate found " '+string+' " ')
+            return true;
+        }
+
+        return false;
+    }
+
+    // Add tags programmatically 
+    TagsInput.prototype.addData = function(array){
+        var plugin = this;
+        
+        array.forEach(function(string){
+            plugin.addTag(string);
+        })
+        return this;
+    }
+
+    // Get the Input String
+    TagsInput.prototype.getInputString = function(){
+        return this.arr.join(',');
+    }
+
+
+    // destroy the plugin
+    TagsInput.prototype.destroy = function(){
+        this.orignal_input.removeAttribute('hidden');
+
+        delete this.orignal_input;
+        var self = this;
+        
+        Object.keys(this).forEach(function(key){
+            if(self[key] instanceof HTMLElement)
+                self[key].remove();
+            
+            if(key != 'options')
+                delete self[key];
+        });
+
+        this.initialized = false;
+    }
+
+    // Private function to initialize the tag input plugin
+    function init(tags){
+        tags.wrapper.append(tags.input);
+        tags.wrapper.classList.add(tags.options.wrapperClass);
+        tags.orignal_input.setAttribute('hidden' , 'true');
+        tags.orignal_input.parentNode.insertBefore(tags.wrapper , tags.orignal_input);
+    }
+
+    // initialize the Events
+    function initEvents(tags){
+        tags.wrapper.addEventListener('click' ,function(){
+            tags.input.focus();           
+        });
+        
+
+        tags.input.addEventListener('keydown' , function(e){
+            var str = tags.input.value.trim(); 
+
+            if( !!(~[9 , 13 , 188].indexOf( e.keyCode ))  )
+            {
+                e.preventDefault();
+                tags.input.value = "";
+                if(str != "")
+                    tags.addTag(str);
+            }
+
+        });
+    }
+
+
+    // Set All the Default Values
+    TagsInput.defaults = {
+        selector : '',
+        wrapperClass : 'tags-input-wrapper',
+        tagClass : 'tag',
+        max : null,
+        duplicate: false
+    }
+
+    window.TagsInput = TagsInput;
+
+})();
+
+ var tagInput1 = new TagsInput({
+            selector: 'tag-input1',
+            duplicate : false,
+            max : 10
+        });
+        tagInput1.addData(['DARPG' ])
+    
+</script>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+    <div class="header-right">
+        
+
+
+        <div class="dashboard-setting user-notification">
+            <div class="dropdown">
+                <a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
+                    <i class="icon-copy fa fa-video-camera" aria-hidden="true"></i>
+                    <i class="dw dw-settings2"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="user-info-dropdown">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                    <span class="user-icon">
+                        <img src="src/images/admin.svg" alt="" />
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
+                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
+                    <a class="dropdown-item" href="faq.html"><i class="icon-copy fa fa-cloud-download" aria-hidden="true"></i> Load</a>
+                    <a class="dropdown-item" href="faq.html"><i class="icon-copy fa fa-handshake-o" aria-hidden="true"></i></i> Save</a>
+                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
+            </div>
+        </div>
+        <div class="github-link">
+            <a href="" target="_blank"><img src="" alt="" /></a>
+        </div>
+    </div>
+</div>
+
+
+		<div class="right-sidebar">
+			<div class="sidebar-title">
+				<h3 class="weight-600 font-16 text-blue">
+					Layout Settings
+					<span class="btn-block font-weight-400 font-12"
+						>User Interface Settings</span
+					>
+				</h3>
+				<div class="close-sidebar" data-toggle="right-sidebar-close">
+					<i class="icon-copy ion-close-round"></i>
+				</div>
+			</div>
+			<div class="right-sidebar-body customscroll">
+				<div class="right-sidebar-body-content">
+					<h4 class="weight-600 font-18 pb-10">Header Background</h4>
+					<div class="sidebar-btn-group pb-30 mb-10">
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary header-white active"
+							>White</a
+						>
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary header-dark"
+							>Dark</a
+						>
+					</div>
+
+					<h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
+					<div class="sidebar-btn-group pb-30 mb-10">
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary sidebar-light"
+							>White</a
+						>
+						<a
+							href="javascript:void(0);"
+							class="btn btn-outline-primary sidebar-dark active"
+							>Dark</a
+						>
+					</div>
+
+					<h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
+					<div class="sidebar-radio-group pb-10 mb-10">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebaricon-1"
+								name="menu-dropdown-icon"
+								class="custom-control-input"
+								value="icon-style-1"
+								checked=""
+							/>
+							<label class="custom-control-label" for="sidebaricon-1"
+								><i class="fa fa-angle-down"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebaricon-2"
+								name="menu-dropdown-icon"
+								class="custom-control-input"
+								value="icon-style-2"
+							/>
+							<label class="custom-control-label" for="sidebaricon-2"
+								><i class="ion-plus-round"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebaricon-3"
+								name="menu-dropdown-icon"
+								class="custom-control-input"
+								value="icon-style-3"
+							/>
+							<label class="custom-control-label" for="sidebaricon-3"
+								><i class="fa fa-angle-double-right"></i
+							></label>
+						</div>
+					</div>
+
+					<h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
+					<div class="sidebar-radio-group pb-30 mb-10">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-1"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-1"
+								checked=""
+							/>
+							<label class="custom-control-label" for="sidebariconlist-1"
+								><i class="ion-minus-round"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-2"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-2"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-2"
+								><i class="fa fa-circle-o" aria-hidden="true"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-3"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-3"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-3"
+								><i class="dw dw-check"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-4"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-4"
+								checked=""
+							/>
+							<label class="custom-control-label" for="sidebariconlist-4"
+								><i class="icon-copy dw dw-next-2"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-5"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-5"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-5"
+								><i class="dw dw-fast-forward-1"></i
+							></label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input
+								type="radio"
+								id="sidebariconlist-6"
+								name="menu-list-icon"
+								class="custom-control-input"
+								value="icon-list-style-6"
+							/>
+							<label class="custom-control-label" for="sidebariconlist-6"
+								><i class="dw dw-next"></i
+							></label>
+						</div>
+					</div>
+
+					<div class="reset-options pt-30 text-center">
+						<button class="btn btn-danger" id="reset-settings">
+							Reset Settings
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="left-side-bar">
+			<div class="brand-logo">
+				<a href="index.html">
+					<img src="src/images/new.png" alt="" class="dark-logo" />
+					<img
+						src="src/images/new.png"
+						alt=""
+						class="light-logo"
+					/>
+				</a>
+				<div class="close-sidebar" data-toggle="left-sidebar-close">
+					<i class="ion-close-round"></i>
+				</div>
+			</div>
+
+
+			<div class="menu-block customscroll">
+				<div class="sidebar-menu">
+					<ul id="accordion-menu">
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-house"></span
+								><span class="mtext">Home</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="index.html">Dashboard</a></li>
+								<li><a href="datatable.html">Results </a></li>
+								<li><a href="index3.html">Organisations</a></li>
+								<li><a href="index3.html">Flow Analysis</a></li>
+							</ul>
+						</li>
+						
+							<a href="calendar.html" class="dropdown-toggle no-arrow">
+								<span class="micon bi bi-calendar4-week"></span
+								><span class="mtext">Calendar</span>
+							</a>
+						</li>
+						
+						
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-pie-chart"></span
+								><span class="mtext">Charts</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="highchart.html">Top indicator</a></li>
+								<li><a href="knob-chart.html">Tags By team</a></li>
+								<li><a href="jvectormap.html">Close vs Pending</a></li>
+								<li><a href="apexcharts.html">Top selector</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon bi bi-table"></span
+								><span class="mtext">Tables</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="datatable.html">DataTables</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="main-container">
+			<div class="pd-ltr-20 xs-pd-20-10">
+				<div class="min-height-200px">
+					<div class="page-header">
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="title">
+									<h4>DARPG DASHBOARD</h4>
+								</div>
+								
+							</div>
+							
+							<div class="col-md-6 col-sm-12 text-right">
+								<div class="dropdown">
+									<a
+										class="btn btn-primary dropdown-toggle"
+										href="#"
+										role="button"
+										data-toggle="dropdown"
+									>
+										Select Extra
+									</a>
+									
+								<a class="btn btn-primary" href="javascript:window.location.reload(true);" role="button">
+    <i class="fa fa-refresh"></i> Refresh
+</a>
+
+
+
+            <!-- Switch button -->
+           
+ 
+<style>
+/* Add your CSS styles here */
+.switch-container {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
+
+.switch {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+</head>
+<body>
+
+<div class="switch-container">
+  <!-- Switch button -->
+  <input type="checkbox" id="toggle-switch" class="switch">
+  <label class="slider round" for="toggle-switch"></label>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toggleSwitch = document.getElementById('toggle-switch');
+  toggleSwitch.addEventListener('change', function() {
+    if (this.checked) {
+      window.location.href = 'file:///D:/Captan/UIUX%20HACKTHON%20WEB/index3.html';
+    }
+  });
+});
+</script>
+
+
+
+
+
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="">Extra Close Vs Pending</a>
+										<a class="dropdown-item" href="#">Policies</a>
+										<a class="dropdown-item" href="#">View Assets</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+    <style>
+	/* CSS */
+
+	</style>
+    <!-- Original Slides -->
+	<div class="row pb-10">
+					<div class="col-xl-2 col-lg-3 col-md-6 mb-20">
+						<div class="card-box height-100-p widget-style3">
+							<div class="d-flex flex-wrap">
+								<div class="widget-data">
+									<div class="weight-700 font-24 text-dark">3,11,719</div>
+									<div class="font-14 text-secondary weight-500">
+										Grevience 
+									</div>
+								</div>
+								<div class="widget-icon">
+									<div class="icon" data-color="#00eccf">
+										<i class="icon-copy dw dw-calendar1"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-6 mb-20">
+						<div class="card-box height-100-p widget-style3">
+							<div class="d-flex flex-wrap">
+								<div class="widget-data">
+									<div class="weight-700 font-24 text-dark">173,549</div>
+									<div class="font-14 text-secondary weight-500">
+										Appeals Open
+									</div>
+								</div>
+								<div class="widget-icon">
+									<div class="icon" data-color="#ff5b5b">
+										<i class="icon-copy bi bi-envelope-open"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-6 mb-20">
+						<div class="card-box height-100-p widget-style3">
+							<div class="d-flex flex-wrap">
+								<div class="widget-data">
+									<div class="weight-700 font-24 text-dark">153,708</div>
+									<div class="font-14 text-secondary weight-500">
+										Appeals Close
+									</div>
+								</div>
+								<div class="widget-icon">
+									<div class="icon">
+										<i class="icon-copy bi bi-lock-fill"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-6 mb-20">
+						<div class="card-box height-100-p widget-style3">
+							<div class="d-flex flex-wrap">
+								<div class="widget-data">
+									<div class="weight-700 font-24 text-dark">657</div>
+									<div class="font-14 text-secondary weight-500">Districts</div>
+								</div>
+								<div class="widget-icon">
+									<div class="icon" data-color="#09cc06">
+										<i class="icon-copy bi bi-capslock-fill"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-6 mb-20">
+						<div class="card-box height-100-p widget-style3">
+							<div class="d-flex flex-wrap">
+								<div class="widget-data">
+									<div class="weight-700 font-24 text-dark">35</div>
+									<div class="font-14 text-secondary weight-500">
+										State/UT
+									</div>
+								</div>
+								<div class="widget-icon">
+									<div class="icon" data-color="#00eccf">
+										<i class="icon-copy bi bi-telegram"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-6 mb-20">
+						<div class="card-box height-100-p widget-style3">
+							<div class="d-flex flex-wrap">
+								<div class="widget-data">
+									<div class="weight-700 font-24 text-dark">778,812</div>
+									<div class="font-14 text-secondary weight-500">
+										Mobiles
+									</div>
+								</div>
+								<div class="widget-icon">
+									<div class="icon" data-color="#ff5b5b">
+										<i class="icon-copy bi bi-phone-fill"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="./style.css">
+<style>
+/* Charts Style  */
+
+.fm-charts-color-1 {
+    fill: #b15cc2 !important;
+}
+
+.fm-charts-color-2 {
+    fill: #df3800 !important;
+}
+
+#pivotcharts-container-1 #fm-pivot-view #fm-charts-view div #fm-chart svg g g rect.fm-bar {
+    fill: #f07b0b !important;
+}
+
+#pivotcharts-container-2 #fm-pivot-view #fm-charts-view div #fm-chart svg g g rect.fm-bar {
+    fill: #7abd5f !important;
+}
+
+#pivotcharts-container-4 #fm-pivot-view #fm-charts-view div #fm-chart svg g g rect.fm-bar {
+    fill: #ec7b51 !important;
+}
+
+
+.fm-title {
+  letter-spacing: 1px !important;
+  text-rendering: optimizeLegibility !important;
+  color: #f07b0b !important;
+}
+
+
+.col1 {
+    width: 50%;
+    float: left;
+    height: 100%;
+}
+.col2 {
+    width: 50%;
+    float: right;
+    height: 100%;
+}
+</style>
+</head>
+<script src="https://cdn.flexmonster.com/flexmonster.js"></script>
+<div id="pivot-container"></div>
+  
+<div class="col1">
+   <div id="pivotcharts-container-1"></div>
+</div>
+<div class="col2">
+   <div id="pivotcharts-container-2"></div>
+</div>
+<div class="col1">
+   <div id="pivotcharts-container-3"></div>
+</div>
+<div class="col2">
+   <div id="pivotcharts-container-4"></div>
+</div>
+
+
+
+<!-- partial -->
+  <script>var pivot = new Flexmonster({
+    container: "#pivot-container",
+    componentFolder: "https://cdn.flexmonster.com/",
+    licenseFilePath: "https://cdn.flexmonster.com/codepen.key",
+    width: "100%",
+    height: 500,
+    toolbar: true,
+    report: {
+        dataSource: {
+            data: getData()
+        },
+        "slice": {
+        "reportFilters": [
+            {
+                "uniqueName": "Scams"
+            },
+            {
+                "uniqueName": "Sexual Harrassment",
+                "filter": {
+                    "members": [
+                        "Sexual Harrassment.[f]"
+                    ]
+                }
+            },
+            {
+                "uniqueName": "Corruption",
+                "filter": {
+                    "members": [
+                        "Corruption.[<21]"
+                    ]
+                }
+            },
+            {
+                "uniqueName": "Suicided "
+            },
+            {
+                "uniqueName": "Employment start date",
+                "filter": {
+                    "query": {
+                        "before": "2019-12-10"
+                    }
+                }
+            }
+        ],
+        "rows": [
+            {
+                "uniqueName": "Indicators"
+            }
+        ],
+        "columns": [
+            {
+                "uniqueName": "[Measures]"
+            },
+            {
+                "uniqueName": "Department",
+                "filter": {
+                    "measure": {
+                        "uniqueName": "Grievance ",
+                        "aggregation": "median"
+                    },
+                    "query": {
+                        "top": 5
+                    }
+                }
+            }
+        ],
+        "measures": [
+            {
+                "uniqueName": "Grievance ",
+                "aggregation": "median"
+            },
+            {
+                "uniqueName": "Time to Hire (days)",
+                "aggregation": "average",
+                "active": false
+            }
+        ],
+        "sorting": {
+            "column": {
+                "type": "desc",
+                "tuple": [],
+                "measure": {
+                    "uniqueName": "Grievance ",
+                    "aggregation": "median"
+                }
+            }
+        }
+    },
+        conditions: [{
+            formula: "#value < 2000",
+            measure: "Grievance ",
+            format: {
+                backgroundColor: "#df3800",
+                color: "#FFFFFF"
+            },
+            isTotal: false
+        }, {
+            formula: "#value > 7500",
+            measure: "Grievance ",
+            format: {
+                backgroundColor: "#f07b0b",
+                color: "#FFFFFF"
+            }
+        }],
+        formats: [{
+            name: "2sfou03a",
+            thousandsSeparator: ",",
+            decimalSeparator: ".",
+            decimalPlaces: 2,
+            currencySymbol: "$",
+            currencySymbolAlign: "left",
+            nullValue: "",
+            textAlign: "right",
+            isPercent: false
+        }]
+    }
+});
+
+var pivotcharts = new Flexmonster({
+    container: "#pivotcharts-container-1",
+    componentFolder: "https://cdn.flexmonster.com/",
+    licenseFilePath: "https://cdn.flexmonster.com/codepen.key",
+    width: "100%",
+    height: 500,
+    //toolbar: true,
+    report: {
+        dataSource: {
+            data: getData()
+        },
+        "slice": {
+        "reportFilters": [
+            {
+                "uniqueName": "Sexual Harrassment"
+            }
+        ],
+        "rows": [
+            {
+                "uniqueName": "Department",
+                "filter": {
+                    "measure": {
+                        "uniqueName": "Grievance ",
+                        "aggregation": "median"
+                    },
+                    "query": {
+                        "top": 5
+                    }
+                }
+            }
+        ],
+        "columns": [
+            {
+                "uniqueName": "[Measures]"
+            }
+        ],
+        "measures": [
+            {
+                "uniqueName": "Grievance ",
+                "aggregation": "median"
+            }
+        ],
+        "sorting": {
+            "column": {
+                "type": "desc",
+                "tuple": [],
+                "measure": {
+                    "uniqueName": "Grievance ",
+                    "aggregation": "median"
+                }
+            }
+        }
+    },
+    "options": {
+        "viewType": "charts",
+        "chart": {
+            "type": "bar_h"
+        }
+    },
+    "formats": []
+    }
+});
+
+var pivotcharts2 = new Flexmonster({
+    container: "#pivotcharts-container-2",
+    componentFolder: "https://cdn.flexmonster.com/",
+    licenseFilePath: "https://cdn.flexmonster.com/codepen.key",
+    width: "100%",
+    height: 500,
+    //toolbar: true,
+    report: {
+        dataSource: {
+            data: getData()
+        },
+        "slice": {
+        "reportFilters": [
+            {
+                "uniqueName": "Sexual Harrassment"
+            }
+        ],
+        "rows": [
+            {
+                "uniqueName": "Indicators",
+                "filter": {
+                    "measure": {
+                        "uniqueName": "Number of Grievences"
+                    },
+                    "query": {
+                        "top": 10
+                    }
+                }
+            }
+        ],
+        "columns": [
+            {
+                "uniqueName": "[Measures]"
+            }
+        ],
+        "measures": [
+            {
+                "uniqueName": "Number of Grievences",
+                "formula": "count(\"id\")",
+                "caption": "Number of Grievences"
+            }
+        ],
+        "sorting": {
+            "column": {
+                "type": "desc",
+                "tuple": [],
+                "measure": {
+                    "uniqueName": "Number of Grievences"
+                }
+            }
+        }
+    },
+    "options": {
+        "viewType": "charts",
+        "chart": {
+            "type": "bar_v"
+        }
+    },
+    "conditions": [
+        {
+            "formula": "#value < 2000",
+            "isTotal": false,
+            "measure": "Grievance ",
+            "format": {
+                "backgroundColor": "#3d85c6",
+                "color": "#FFFFFF"
+            }
+        },
+        {
+            "formula": "#value > 7500",
+            "measure": "Grievance ",
+            "format": {
+                "backgroundColor": "#f07b0b",
+                "color": "#FFFFFF"
+            }
+        }
+    ],
+    "formats": []
+    }
+});
+var pivotcharts3 = new Flexmonster({
+    container: "#pivotcharts-container-3",
+    componentFolder: "https://cdn.flexmonster.com/",
+    licenseFilePath: "https://cdn.flexmonster.com/codepen.key",
+    width: "100%",
+    height: 500,
+    //toolbar: true,
+    report: {
+        dataSource: {
+            data: getData()
+        },
+        "slice": {
+          "reportFilters": [
+            {
+                "uniqueName": "Department"
+            }
+        ],
+        "rows": [
+            {
+                "uniqueName": "Sexual Harrassment"
+            }
+        ],
+        "columns": [
+            {
+                "uniqueName": "[Measures]"
+            }
+        ],
+        "measures": [
+            {
+                "uniqueName": "Number of Grievences",
+                "formula": "count(\"id\")",
+                "caption": "Number of Grievences"
+            }
+        ],
+        "sorting": {
+            "column": {
+                "type": "desc",
+                "tuple": [],
+                "measure": {
+                    "uniqueName": "Number of Grievences",
+                "formula": "count(\"id\")",
+                "caption": "Number of Grievences"
+                }
+            }
+        }
+    },
+    "options": {
+        "viewType": "charts",
+        "chart": {
+            "type": "pie"
+        }
+    },
+    "formats": []
+    }
+});
+
+var pivotcharts4 = new Flexmonster({
+    container: "#pivotcharts-container-4",
+    componentFolder: "https://cdn.flexmonster.com/",
+    licenseFilePath: "https://cdn.flexmonster.com/codepen.key",
+    width: "100%",
+    height: 500,
+    //toolbar: true,
+    report: {
+        dataSource: {
+            data: getData()
+        },
+        "slice": {
+        "reportFilters": [
+            {
+                "uniqueName": "Sexual Harrassment"
+            }
+        ],
+        "rows": [
+            {
+                "uniqueName": "Corruption"
+            }
+        ],
+        "columns": [
+            {
+                "uniqueName": "[Measures]"
+            }
+        ],
+        "measures": [
+            {
+                "uniqueName": "Number of Grievences",
+                "formula": "count(\"id\")",
+                "caption": "Number of Grievences"
+            }
+        ],
+        "sorting": {
+            "column": {
+                "type": "desc",
+                "tuple": [],
+                "measure": {
+                    "uniqueName": "Number of Grievences",
+                "formula": "count(\"id\")",
+                "caption": "Number of Grievences"
+                }
+            }
+        }
+    },
+    "options": {
+        "viewType": "charts",
+        "chart": {
+            "type": "bar_h"
+        }
+    },
+    "formats": []
+    }
+});
+
+
+function getData() {
+  return [
+    {"id":{"type":"number"},"Full Name":{"type":"string"},"Job Title":{"type":"string"},"Indicators":{"type":"string"},"Sexual Harrassment":{"type":"string"},"Suicided ":{"type":"string"},"Currency":{"type":"string"},"Department":{"type":"string"},"Scams":{"type":"string"},"Grievance ":{"type":"number"},"Overtime Hours":{"type":"number"},"Employment start date":{"type":"date string"},"Corruption":{"type":"string"}, "Time to Hire (days)": {"type":"number"}},
+    {"id":1,"Full Name":"Sallyanne Tryhorn","Job Title":"Software Consultant","Indicators":"","Sexual Harrassment":"F","Suicided ":"Kalmar Suicided  College","Currency":"SEK","Department":"Business Development","Scams":"Brand Management","Grievance ":1229,"Overtime Hours":12,"Employment start date":"9/26/2015","Corruption":"<21", "Time to Hire (days)": 5},
+{"id":2,"Full Name":"Xenia Maydwell","Job Title":"Financial Analyst","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Philippine Military Academy","Currency":"PHP","Department":"Support","Scams":"VOD","Grievance ":3720,"Overtime Hours":7,"Employment start date":"3/12/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":3,"Full Name":"Haydon Jefferies","Job Title":"Senior Developer","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Vale do Rio Doce","Currency":"BRL","Department":"Support","Scams":"DTS","Grievance ":2998,"Overtime Hours":6,"Employment start date":"9/18/2015","Corruption":">70", "Time to Hire (days)": 30},
+{"id":4,"Full Name":"Clayborn Adds","Job Title":"Office Assistant II","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas Gajayana Malang","Currency":"IDR","Department":"Business Development","Scams":"NCP","Grievance ":1663,"Overtime Hours":35,"Employment start date":"6/20/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":5,"Full Name":"Towney Piscopello","Job Title":"Engineer IV","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Isabela State Suicided ","Currency":"PHP","Department":"Allocated ","Scams":"Yard Work","Grievance ":4443,"Overtime Hours":29,"Employment start date":"6/11/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":6,"Full Name":"Richart Pailin","Job Title":"Internal Auditor","Indicators":"","Sexual Harrassment":"M","Suicided ":"Open Suicided  of Sri Lanka","Currency":"LKR","Department":"Closed ","Scams":"Ghostwriting","Grievance ":2180,"Overtime Hours":29,"Employment start date":"8/26/2015","Corruption":">70", "Time to Hire (days)": 30},
+{"id":7,"Full Name":"Doralia Scedall","Job Title":"Geological Engineer","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Altai State Technical Suicided ","Currency":"RUB","Department":"Opened","Scams":"XACML","Grievance ":3900,"Overtime Hours":12,"Employment start date":"10/20/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":8,"Full Name":"Tessie Scane","Job Title":"Community Outreach Specialist","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Pembangunan Panca Budi","Currency":"IDR","Department":"Business Development","Scams":"LDD","Grievance ":2143,"Overtime Hours":27,"Employment start date":"7/13/2019","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":9,"Full Name":"Tiphanie Woollam","Job Title":"Software Engineer I","Indicators":"","Sexual Harrassment":"F","Suicided ":"Politeknik Negeri Malang","Currency":"IDR","Department":"Opened","Scams":"NSA","Grievance ":4721,"Overtime Hours":35,"Employment start date":"5/20/2017","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":10,"Full Name":"Tomasine Oade","Job Title":"Automation Specialist I","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Negeri Yogyakarta","Currency":"IDR","Department":"BSNL CALLSweeklys","Scams":"Omgeo Oasys","Grievance ":996,"Overtime Hours":20,"Employment start date":"4/11/2015","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":11,"Full Name":"Rickard Fraser","Job Title":"Community Outreach Specialist","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Hubei Suicided ","Currency":"CNY","Department":"Allocated ","Scams":"Ultrasound Therapy","Grievance ":1086,"Overtime Hours":33,"Employment start date":"9/26/2015","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":12,"Full Name":"Shawn Harmson","Job Title":"Allocated  Associate","Indicators":"  ","Sexual Harrassment":"M","Suicided ":"Czech Technical Suicided  of Prague","Currency":"CZK","Department":"Business Development","Scams":"NQA-1","Grievance ":971,"Overtime Hours":15,"Employment start date":"6/23/2016","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":13,"Full Name":"Adolphe Bunch","Job Title":"Electrical Engineer","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Anhui Normal Suicided ","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"Logging","Grievance ":797,"Overtime Hours":10,"Employment start date":"10/14/2015","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":14,"Full Name":"Rosanna Signori","Job Title":"VP Quality Control","Indicators":"","Sexual Harrassment":"F","Suicided ":"Olabisi Onabanjo Suicided  ","Currency":"NGN","Department":"Marketing","Scams":"AXI","Grievance ":2739,"Overtime Hours":12,"Employment start date":"3/31/2015","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":15,"Full Name":"Gussy Biagi","Job Title":"Received  Assistant III","Indicators":"     ","Sexual Harrassment":"F","Suicided ":"Suicided  of Mostar","Currency":"BAM","Department":"Business Development","Scams":"Yamaha Digital Consoles","Grievance ":1733,"Overtime Hours":27,"Employment start date":"4/16/2015","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":16,"Full Name":"Ema Gierck","Job Title":"Pharmacist","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad Nacional del Sur","Currency":"ARS","Department":"Product Management","Scams":"AXE","Grievance ":1464,"Overtime Hours":17,"Employment start date":"7/24/2017","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":17,"Full Name":"Bobbye Pink","Job Title":"Electrical Engineer","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Holy Angel Suicided ","Currency":"PHP","Department":"BSNL CALLSMonthly","Scams":"PDS","Grievance ":1797,"Overtime Hours":22,"Employment start date":"5/22/2017","Corruption":">70", "Time to Hire (days)": 30},
+{"id":18,"Full Name":"Sonny Halpeine","Job Title":"Received  Assistant III","Indicators":"User Personal Detail","Sexual Harrassment":"M","Suicided ":"King's College","Currency":"CAD","Department":"BSNL CALLSMonthly","Scams":"Biopharmaceuticals","Grievance ":2744,"Overtime Hours":28,"Employment start date":"11/15/2016","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":19,"Full Name":"Waylan Chaudrelle","Job Title":"Systems Administrator III","Indicators":"","Sexual Harrassment":"M","Suicided ":"Dalarna Suicided  College","Currency":"SEK","Department":"Allocated ","Scams":"Risk Assessment","Grievance ":6951,"Overtime Hours":33,"Employment start date":"10/26/2018","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":20,"Full Name":"Ardith Volet","Job Title":"Junior Executive","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Islam ","Currency":"IDR","Department":"Opened","Scams":"AQTESOLV","Grievance ":2598,"Overtime Hours":1,"Employment start date":"5/25/2017","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":21,"Full Name":"Gianni Meharg","Job Title":"VP Product Management","Indicators":"ATR","Sexual Harrassment":"M","Suicided ":"Universidad Los Andes","Currency":"BOB","Department":"BSNL CALLSweeklys","Scams":"International Relations","Grievance ":2170,"Overtime Hours":5,"Employment start date":"7/14/2017","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":22,"Full Name":"Celle Fancourt","Job Title":"Senior Financial Analyst","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Hunan Agricultural Suicided ","Currency":"CNY","Department":"BSNL CALLSMonthly","Scams":"RDMA","Grievance ":4768,"Overtime Hours":26,"Employment start date":"5/5/2015","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":23,"Full Name":"Shel Woodwind","Job Title":"Computer Systems Analyst III","Indicators":"","Sexual Harrassment":"F","Suicided ":"Politeknik Negeri Malang","Currency":"IDR","Department":"Opened","Scams":"Product Development","Grievance ":7997,"Overtime Hours":34,"Employment start date":"8/24/2017","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":24,"Full Name":"Sayer Alves","Job Title":"Administrative Officer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  of the Humanities","Currency":"MNT","Department":"Opened","Scams":"EPiServer","Grievance ":2621,"Overtime Hours":16,"Employment start date":"1/5/2017","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":25,"Full Name":"Gigi Kohlert","Job Title":"VP Quality Control","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Philippine Women's Suicided ","Currency":"PHP","Department":"Marketing","Scams":"AAAHC","Grievance ":7476,"Overtime Hours":11,"Employment start date":"4/15/2018","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":26,"Full Name":"Garvey Jephcote","Job Title":"Research Nurse","Indicators":"User Personal Detail","Sexual Harrassment":"M","Suicided ":"Suicided  of Prince Edward Island","Currency":"CAD","Department":"Product Management","Scams":"LPCVD","Grievance ":3874,"Overtime Hours":30,"Employment start date":"11/22/2015","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":27,"Full Name":"Sheff Giovannazzi","Job Title":"Community Outreach Specialist","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Surgut State Suicided ","Currency":"RUB","Department":"Training","Scams":"DCID 6/3","Grievance ":7393,"Overtime Hours":28,"Employment start date":"9/17/2017","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":28,"Full Name":"Lenee O'Heyne","Job Title":"Nurse Practicioner","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Yangtze Suicided ","Currency":"CNY","Department":"Support","Scams":"Ubuntu","Grievance ":1358,"Overtime Hours":0,"Employment start date":"5/8/2018","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":29,"Full Name":"Bartel Bedford","Job Title":"Registered Nurse","Indicators":"BSNL CALLS","Sexual Harrassment":"M","Suicided ":"Payap Suicided  Chaiang Mai","Currency":"THB","Department":"Business Development","Scams":"Ulcerative Colitis","Grievance ":2695,"Overtime Hours":1,"Employment start date":"8/8/2018","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":30,"Full Name":"Dante Stansall","Job Title":"Administrative Assistant III","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Regional Integrada do Alto Uruguai e das Missões","Currency":"BRL","Department":"Allocated ","Scams":"Wedding DJ","Grievance ":3057,"Overtime Hours":6,"Employment start date":"11/21/2018","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":31,"Full Name":"Raf Leat","Job Title":"Opened Assistant II","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Northwest Normal Suicided  Lanzhou","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"OTN","Grievance ":5543,"Overtime Hours":28,"Employment start date":"11/10/2016","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":32,"Full Name":"Avril Gatch","Job Title":"Tax Accountant","Indicators":"TPFG","Sexual Harrassment":"F","Suicided ":"Technical Suicided  of Radom","Currency":"PLN","Department":"BSNL CALLSweeklys","Scams":"Screenwriting","Grievance ":1721,"Overtime Hours":3,"Employment start date":"8/16/2018","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":33,"Full Name":"Erda Finnan","Job Title":"Web Developer III","Indicators":"  ","Sexual Harrassment":"F","Suicided ":"Universidad Interamericana","Currency":"DOP","Department":"Marketing","Scams":"Process Piping Design","Grievance ":4645,"Overtime Hours":6,"Employment start date":"3/17/2019","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":34,"Full Name":"Roxie Lidgey","Job Title":"Software Consultant","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"St. Petersburg State Forest-Technical Academy","Currency":"RUB","Department":"Marketing","Scams":"Avionics","Grievance ":1153,"Overtime Hours":2,"Employment start date":"3/3/2015","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":35,"Full Name":"Reade Narracott","Job Title":"Speech Pathologist","Indicators":"","Sexual Harrassment":"M","Suicided ":"Tishreen Suicided ","Currency":"SYP","Department":"Product Management","Scams":"JNI","Grievance ":1910,"Overtime Hours":21,"Employment start date":"2/25/2017","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":36,"Full Name":"Avrit Dunlop","Job Title":"Administrative Officer","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Samara State Academy for Railway Transportation","Currency":"RUB","Department":"Allocated ","Scams":"RWA","Grievance ":7103,"Overtime Hours":16,"Employment start date":"11/2/2016","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":37,"Full Name":"Sanders Waldock","Job Title":"Senior Allocated  Associate","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Shandong Suicided  of Art and Design","Currency":"CNY","Department":"Support","Scams":"Chi Kung","Grievance ":1822,"Overtime Hours":12,"Employment start date":"6/22/2019","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":38,"Full Name":"Sara Cowitz","Job Title":"VP Marketing","Indicators":"BSNL CALLS","Sexual Harrassment":"F","Suicided ":"Phranakhon Si Ayutthaya Rajabhat Suicided ","Currency":"THB","Department":"Business Development","Scams":"Hyperion Reports","Grievance ":818,"Overtime Hours":35,"Employment start date":"8/16/2017","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":39,"Full Name":"Whitaker Seifenmacher","Job Title":"Environmental Tech","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Technological Education Institute of Kozani","Currency":"EUR","Department":"Allocated ","Scams":"AV","Grievance ":3857,"Overtime Hours":5,"Employment start date":"7/28/2018","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":40,"Full Name":"Woody Barfield","Job Title":"ParaBSNL CALLSMonthly","Indicators":"Dublicate e","Sexual Harrassment":"M","Suicided ":"National Metallurgical Academy of Dublicate e","Currency":"UAH","Department":"Training","Scams":"WDM","Grievance ":4106,"Overtime Hours":11,"Employment start date":"2/16/2019","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":41,"Full Name":"Marlow Hanney","Job Title":"Biostatistician II","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Northeastern Suicided ","Currency":"CNY","Department":"Allocated ","Scams":"Core FTP","Grievance ":627,"Overtime Hours":35,"Employment start date":"2/9/2019","Corruption":"51 - 60", "Time to Hire (days)": 9},
+{"id":42,"Full Name":"Andromache Gask","Job Title":"Recruiter","Indicators":"","Sexual Harrassment":"F","Suicided ":"Suicided  of the Free State","Currency":"ZAR","Department":"Product Management","Scams":"Dutch","Grievance ":1758,"Overtime Hours":35,"Employment start date":"4/17/2015","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":43,"Full Name":"Almeda Staneland","Job Title":"Product Engineer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Methodist ","Currency":"IDR","Department":"Product Management","Scams":"Hypnosis","Grievance ":4434,"Overtime Hours":28,"Employment start date":"6/3/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":44,"Full Name":"Brod Lansberry","Job Title":"Design Engineer","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Faculdades Integradas UPIS","Currency":"BRL","Department":"BSNL CALLSYearly","Scams":"MBS","Grievance ":3684,"Overtime Hours":24,"Employment start date":"12/4/2018","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":45,"Full Name":"Kara Mardling","Job Title":"Clinical Specialist","Indicators":"BSNL SMS","Sexual Harrassment":"F","Suicided ":"Universidade Autónoma de Lisboa Luís de Camoes","Currency":"EUR","Department":"Training","Scams":"Switchboard Operator","Grievance ":1476,"Overtime Hours":21,"Employment start date":"12/17/2016","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":46,"Full Name":"Verine Salkeld","Job Title":"Account Coordinator","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Shandong Suicided  of Triaditional Chinese Medicine","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"Art","Grievance ":7796,"Overtime Hours":31,"Employment start date":"2/22/2018","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":47,"Full Name":"Delmer Swait","Job Title":"Environmental Specialist","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas Pancasila","Currency":"IDR","Department":"Training","Scams":"World War II","Grievance ":602,"Overtime Hours":34,"Employment start date":"5/8/2019","Corruption":"31 - 40", "Time to Hire (days)": 15},
+{"id":48,"Full Name":"Anatol Fehners","Job Title":"Data Coordiator","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Southwest Suicided  of Nationalities","Currency":"CNY","Department":"BSNL CALLSYearly","Scams":"Zimbra","Grievance ":1535,"Overtime Hours":18,"Employment start date":"2/25/2018","Corruption":"31 - 40", "Time to Hire (days)": 15},
+{"id":49,"Full Name":"Roze Arger","Job Title":"Compensation Analyst","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Shandong Suicided  of Triaditional Chinese Medicine","Currency":"CNY","Department":"Marketing","Scams":"IBM Mainframe","Grievance ":6322,"Overtime Hours":35,"Employment start date":"1/15/2019","Corruption":">70", "Time to Hire (days)": 30},
+{"id":50,"Full Name":"Theresa Ferriere","Job Title":"Research Nurse","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Ecole Nationale Supérieure d'Electronique et de Radioelectricite de Grenoble","Currency":"EUR","Department":"Product Management","Scams":"PMCS","Grievance ":1479,"Overtime Hours":35,"Employment start date":"6/25/2015","Corruption":">70", "Time to Hire (days)": 30},
+{"id":51,"Full Name":"Zechariah MacGovern","Job Title":"Statistician III","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Kazan State Suicided  of Technology","Currency":"RUB","Department":"Marketing","Scams":"Valves","Grievance ":5957,"Overtime Hours":10,"Employment start date":"3/8/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":52,"Full Name":"Brody Jakes","Job Title":"GIS Technical Architect","Indicators":"","Sexual Harrassment":"M","Suicided ":"Unitomo Surabaya","Currency":"IDR","Department":"Allocated ","Scams":"Non-profit Board Development","Grievance ":7827,"Overtime Hours":3,"Employment start date":"1/2/2018","Corruption":"31 - 40", "Time to Hire (days)": 15},
+{"id":53,"Full Name":"Jackquelin Matignon","Job Title":"Systems Administrator III","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Instituto Nacional de Matemática Pura e Aplicada - IMPA","Currency":"BRL","Department":"Received ","Scams":"Group Policy","Grievance ":7244,"Overtime Hours":29,"Employment start date":"12/1/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":54,"Full Name":"Prent Keelan","Job Title":"Civil Engineer","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Technological Education Institute of Piraeus","Currency":"EUR","Department":"Business Development","Scams":"Keyword Research","Grievance ":6390,"Overtime Hours":5,"Employment start date":"4/19/2017","Corruption":"31 - 40", "Time to Hire (days)": 15},
+{"id":55,"Full Name":"Sheeree Lorman","Job Title":"Opened Manager","Indicators":"Dublicate e","Sexual Harrassment":"F","Suicided ":"Taurida National V.I.Vernadsky Suicided ","Currency":"UAH","Department":"Opened","Scams":"Newspapers","Grievance ":1905,"Overtime Hours":11,"Employment start date":"6/14/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":56,"Full Name":"Mark Goldson","Job Title":"Cost Accountant","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Ecole Nationale Supérieure de Chimie de Rennes","Currency":"EUR","Department":"Allocated ","Scams":"Simple IRA","Grievance ":4315,"Overtime Hours":1,"Employment start date":"3/4/2016","Corruption":"31 - 40", "Time to Hire (days)": 16},
+{"id":57,"Full Name":"Errol Keher","Job Title":"Speech Pathologist","Indicators":"User Personal Detail","Sexual Harrassment":"M","Suicided ":"Université du Québec à Rimouski","Currency":"CAD","Department":"Product Management","Scams":"AJAX Frameworks","Grievance ":1793,"Overtime Hours":24,"Employment start date":"5/7/2016","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":58,"Full Name":"Emery Jime","Job Title":"Information Systems Manager","Indicators":"","Sexual Harrassment":"M","Suicided ":"Masinde Muliro Suicided  of Science and Technology","Currency":"KES","Department":"Training","Scams":"CTI","Grievance ":2328,"Overtime Hours":19,"Employment start date":"5/15/2018","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":59,"Full Name":"Christian Wallwork","Job Title":"Technical Writer","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Instituto Tecnológico de Aeronáutica","Currency":"BRL","Department":"Product Management","Scams":"Non-profit Leadership","Grievance ":3562,"Overtime Hours":13,"Employment start date":"3/26/2017","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":60,"Full Name":"Vassili Draisey","Job Title":"Graphic Designer","Indicators":"TPFG","Sexual Harrassment":"M","Suicided ":"Ludwik Solski State Academy of Theatre in Cracow","Currency":"PLN","Department":"Allocated ","Scams":"Successful Business Owner","Grievance ":1180,"Overtime Hours":21,"Employment start date":"1/19/2019","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":61,"Full Name":"Tandie De Pietri","Job Title":"Financial Advisor","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Xinjiang Normal Suicided ","Currency":"CNY","Department":"Marketing","Scams":"Illustrator","Grievance ":6762,"Overtime Hours":11,"Employment start date":"4/27/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":62,"Full Name":"Abby Breinlein","Job Title":"Senior Editor","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Institut Supérieure d'Electronique de Paris","Currency":"EUR","Department":"BSNL CALLSYearly","Scams":"Pharmacy","Grievance ":2155,"Overtime Hours":8,"Employment start date":"1/15/2017","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":63,"Full Name":"Guendolen Sheere","Job Title":"Assistant Manager","Indicators":"Close Vs Pending","Sexual Harrassment":"F","Suicided ":"Universidad Particular de Chiclayo","Currency":"PEN","Department":"Support","Scams":"CDS","Grievance ":2077,"Overtime Hours":16,"Employment start date":"2/21/2019","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":64,"Full Name":"Barthel Silversmidt","Job Title":"Pharmacist","Indicators":"","Sexual Harrassment":"M","Suicided ":"Tashkent Suicided  of Information Technologies","Currency":"UZS","Department":"BSNL CALLSMonthly","Scams":"Long Distance Running","Grievance ":3606,"Overtime Hours":17,"Employment start date":"11/7/2015","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":65,"Full Name":"Alisa Dwelling","Job Title":"Nuclear Power Engineer","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Suicided  of Regina Carmeli","Currency":"PHP","Department":"Support","Scams":"Oil Analysis","Grievance ":1648,"Overtime Hours":31,"Employment start date":"1/3/2016","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":66,"Full Name":"Lanny Gurling","Job Title":"Dental Hygienist","Indicators":"","Sexual Harrassment":"M","Suicided ":"Katsina Suicided ","Currency":"NGN","Department":"Support","Scams":"GPON","Grievance ":6093,"Overtime Hours":17,"Employment start date":"10/16/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":67,"Full Name":"Aldric Maudett","Job Title":"Compensation Analyst","Indicators":" ","Sexual Harrassment":"M","Suicided ":"National Suicided  of Defense Technology","Currency":"CNY","Department":"Received ","Scams":"Utilization","Grievance ":2789,"Overtime Hours":5,"Employment start date":"4/26/2015","Corruption":"31 - 40", "Time to Hire (days)": 16},
+{"id":68,"Full Name":"Emery Benbow","Job Title":"Dental Hygienist","Indicators":"BSNL CALLS","Sexual Harrassment":"M","Suicided ":"Khon Kaen Suicided ","Currency":"THB","Department":"Marketing","Scams":"PPBES","Grievance ":4181,"Overtime Hours":23,"Employment start date":"5/31/2018","Corruption":"31 - 40", "Time to Hire (days)": 16},
+{"id":69,"Full Name":"Siffre MacAlinden","Job Title":"Allocated  Associate","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Fundación Universitaria San Martín","Currency":"COP","Department":"Support","Scams":"Knowledge Management","Grievance ":3796,"Overtime Hours":15,"Employment start date":"11/20/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":70,"Full Name":"Raye Coathup","Job Title":"Software Consultant","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Tadulako","Currency":"IDR","Department":"BSNL CALLSweeklys","Scams":"Rig","Grievance ":3670,"Overtime Hours":20,"Employment start date":"10/7/2018","Corruption":"31 - 40", "Time to Hire (days)": 16},
+{"id":71,"Full Name":"Diahann Gookes","Job Title":"Design Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Suicided  of Thessaly","Currency":"EUR","Department":"Received ","Scams":"GWAS","Grievance ":5247,"Overtime Hours":24,"Employment start date":"10/12/2018","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":72,"Full Name":"Solomon Fishenden","Job Title":"Web Developer IV","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Hebei Normal Suicided ","Currency":"CNY","Department":"BSNL CALLSYearly","Scams":"Honeywell DCS","Grievance ":5547,"Overtime Hours":6,"Employment start date":"3/7/2019","Corruption":">70", "Time to Hire (days)": 30},
+{"id":73,"Full Name":"Gianna Gilardi","Job Title":"BSNL CALLSMonthly Assistant","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Bunda Mulia Jakarta","Currency":"IDR","Department":"BSNL CALLSYearly","Scams":"Csh","Grievance ":3863,"Overtime Hours":8,"Employment start date":"11/30/2018","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":74,"Full Name":"Dora Fox","Job Title":"GIS Technical Architect","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Harbin Suicided  of Civil Closed  & Architecture","Currency":"CNY","Department":"Business Development","Scams":"CTAs","Grievance ":4497,"Overtime Hours":24,"Employment start date":"7/10/2018","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":75,"Full Name":"Angele Asif","Job Title":"Registered Nurse","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Buddhist Acamedy of  ","Currency":"CNY","Department":"Training","Scams":"GIMP","Grievance ":7950,"Overtime Hours":13,"Employment start date":"10/28/2015","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":76,"Full Name":"Farrell Brainsby","Job Title":"Received  Assistant IV","Indicators":"Close Vs Pending","Sexual Harrassment":"M","Suicided ":"Universidad Privada Antenor Orrego","Currency":"PEN","Department":"Marketing","Scams":"Blueprint Reading","Grievance ":3739,"Overtime Hours":10,"Employment start date":"4/13/2016","Corruption":"<21", "Time to Hire (days)": 24},
+{"id":77,"Full Name":"Elayne Tipple","Job Title":"Chief Design Engineer","Indicators":"   ","Sexual Harrassment":"F","Suicided ":"Al-Quds Suicided  - The Arab Suicided  in Jerusalem","Currency":"ILS","Department":"Training","Scams":"SRDF","Grievance ":5177,"Overtime Hours":8,"Employment start date":"8/4/2017","Corruption":"<21", "Time to Hire (days)": 15},
+{"id":78,"Full Name":"Izzy Comsty","Job Title":"Web Designer II","Indicators":"","Sexual Harrassment":"M","Suicided ":"Ecole Supérieure d'Informatique et de Management","Currency":"MAD","Department":"Training","Scams":"Appraisals","Grievance ":6475,"Overtime Hours":30,"Employment start date":"1/3/2017","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":79,"Full Name":"Kalil Mac Giolla Pheadair","Job Title":"Chief Design Engineer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas Sumatera Utara","Currency":"IDR","Department":"Closed ","Scams":"Human Computer Interaction","Grievance ":4879,"Overtime Hours":34,"Employment start date":"11/6/2018","Corruption":"<21", "Time to Hire (days)": 15},
+{"id":80,"Full Name":"Chevy Frarey","Job Title":"Social Worker","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Santa Cecília dos Bandeirantes","Currency":"BRL","Department":"Business Development","Scams":"CFD","Grievance ":776,"Overtime Hours":2,"Employment start date":"7/12/2015","Corruption":"<21", "Time to Hire (days)": 15},
+{"id":81,"Full Name":"Janella Mullins","Job Title":"Help Desk Technician","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad de Congreso","Currency":"ARS","Department":"Support","Scams":"MMO","Grievance ":5192,"Overtime Hours":22,"Employment start date":"6/15/2017","Corruption":"<21", "Time to Hire (days)": 15},
+{"id":82,"Full Name":"Orelia Andress","Job Title":"Project Manager","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Sun Yat-Sen Suicided  of Medical Sciences","Currency":"CNY","Department":"Allocated ","Scams":"Hardware Diagnostics","Grievance ":2738,"Overtime Hours":34,"Employment start date":"4/18/2019","Corruption":"21 - 30", "Time to Hire (days)": 3},
+{"id":83,"Full Name":"Silvan Powdrell","Job Title":"Editor","Indicators":"","Sexual Harrassment":"M","Suicided ":"Tshwane Suicided  of Technology","Currency":"ZAR","Department":"Opened","Scams":"NT 4.0","Grievance ":2200,"Overtime Hours":7,"Employment start date":"11/22/2018","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":84,"Full Name":"Deerdre Cordy","Job Title":"VP Quality Control","Indicators":"  ","Sexual Harrassment":"F","Suicided ":"Universidad Rural de ","Currency":"GTQ","Department":"BSNL CALLSweeklys","Scams":"CVA","Grievance ":3582,"Overtime Hours":3,"Employment start date":"7/23/2017","Corruption":"31 - 40", "Time to Hire (days)": 16},
+{"id":85,"Full Name":"Nathalie Gerrad","Job Title":"Social Worker","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Haramaya Suicided ","Currency":"ETB","Department":"Training","Scams":"401k Rollovers","Grievance ":2449,"Overtime Hours":17,"Employment start date":"7/10/2017","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":86,"Full Name":"Estevan Inett","Job Title":"Research Assistant III","Indicators":"Close Vs Pending","Sexual Harrassment":"M","Suicided ":"Universidad Nacional Jorge Basadre Grohmann","Currency":"PEN","Department":"Support","Scams":"Fluorescence Microscopy","Grievance ":3061,"Overtime Hours":26,"Employment start date":"1/20/2015","Corruption":"41 - 50", "Time to Hire (days)": 14},
+{"id":87,"Full Name":"Shem Toupe","Job Title":"Analyst Programmer","Indicators":"BSNL CALLS","Sexual Harrassment":"M","Suicided ":"Asian Institute of Technology","Currency":"THB","Department":"BSNL CALLSweeklys","Scams":"OH&amp;S","Grievance ":6897,"Overtime Hours":30,"Employment start date":"1/28/2016","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":88,"Full Name":"Idaline Riepel","Job Title":"General Manager","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Samara State Agricultural Academy","Currency":"RUB","Department":"Business Development","Scams":"RLC","Grievance ":5337,"Overtime Hours":17,"Employment start date":"2/27/2019","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":89,"Full Name":"Babbette Hardy","Job Title":"Marketing Manager","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Yunnan Normal Suicided ","Currency":"CNY","Department":"BSNL CALLSYearly","Scams":"System Architecture","Grievance ":2170,"Overtime Hours":10,"Employment start date":"6/30/2019","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":90,"Full Name":"Nancee Burnes","Job Title":"Nurse","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Universidade Estadual do Centro-Oeste","Currency":"BRL","Department":"Training","Scams":"User Experience","Grievance ":2353,"Overtime Hours":31,"Employment start date":"9/17/2016","Corruption":"<21", "Time to Hire (days)": 2},
+{"id":91,"Full Name":"Simona Hardisty","Job Title":"Clinical Specialist","Indicators":"Time Lines Treands","Sexual Harrassment":"F","Suicided ":"Universidad de La Frontera","Currency":"CLP","Department":"BSNL CALLSMonthly","Scams":"SnapMirror","Grievance ":4449,"Overtime Hours":1,"Employment start date":"5/12/2015","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":92,"Full Name":"Bartolemo Jasiak","Job Title":"Environmental Tech","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  of Belgrade","Currency":"RSD","Department":"Support","Scams":"Urban Infill","Grievance ":5430,"Overtime Hours":35,"Employment start date":"12/25/2018","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":93,"Full Name":"Huntington Everiss","Job Title":"Environmental Tech","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Shanghai Ouhua Vocational Technical College","Currency":"CNY","Department":"Received ","Scams":"Boat","Grievance ":1689,"Overtime Hours":7,"Employment start date":"1/7/2019","Corruption":">70", "Time to Hire (days)": 30},
+{"id":94,"Full Name":"Vivyan Pattingson","Job Title":"Design Engineer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Islam Syekh-Yusuf ","Currency":"IDR","Department":"Product Management","Scams":"WFA","Grievance ":3710,"Overtime Hours":4,"Employment start date":"3/7/2019","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":95,"Full Name":"Dion Dantesia","Job Title":"Teacher","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Ural State Conservatory","Currency":"RUB","Department":"Marketing","Scams":"Osteopathy","Grievance ":1231,"Overtime Hours":27,"Employment start date":"10/26/2017","Corruption":"<21", "Time to Hire (days)": 2},
+{"id":96,"Full Name":"Ronnica Du Pre","Job Title":"Business Systems Development Analyst","Indicators":"","Sexual Harrassment":"F","Suicided ":"Bingham Suicided ","Currency":"NGN","Department":"Opened","Scams":"GMC","Grievance ":7978,"Overtime Hours":24,"Employment start date":"2/17/2017","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":97,"Full Name":"Tilda Focke","Job Title":"Executive Secretary","Indicators":"ATR","Sexual Harrassment":"F","Suicided ":"Universidad Católica ATRna, Tarija","Currency":"BOB","Department":"Allocated ","Scams":"LTSpice","Grievance ":5992,"Overtime Hours":14,"Employment start date":"12/30/2017","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":98,"Full Name":"Berti Massingberd","Job Title":"Data Coordiator","Indicators":" ","Sexual Harrassment":"M","Suicided ":"South Suicided  of Science and Technology of   ","Currency":"CNY","Department":"Training","Scams":"Quantitative Analytics","Grievance ":6118,"Overtime Hours":23,"Employment start date":"11/25/2017","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":99,"Full Name":"Stevana Rival","Job Title":"General Manager","Indicators":"","Sexual Harrassment":"F","Suicided ":"Université Épiscopale d'","Currency":"HTG","Department":"BSNL CALLSYearly","Scams":"Non-profit Leadership","Grievance ":4725,"Overtime Hours":22,"Employment start date":"3/18/2015","Corruption":">70", "Time to Hire (days)": 30},
+{"id":100,"Full Name":"Ray Kilgour","Job Title":"Electrical Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Athens School of Fine Arts","Currency":"EUR","Department":"Received ","Scams":"Oxygen Therapy","Grievance ":3753,"Overtime Hours":18,"Employment start date":"6/4/2017","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":101,"Full Name":"Gerta Sterre","Job Title":"General Manager","Indicators":"  ","Sexual Harrassment":"F","Suicided ":"Universidad Católica de Santo Domingo","Currency":"DOP","Department":"BSNL CALLSweeklys","Scams":"CMMI","Grievance ":2682,"Overtime Hours":18,"Employment start date":"5/22/2018","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":102,"Full Name":"Gracia Tewkesbury.","Job Title":"Staff Accountant I","Indicators":"","Sexual Harrassment":"F","Suicided ":"Egerton Suicided ","Currency":"KES","Department":"Training","Scams":"Wills","Grievance ":2597,"Overtime Hours":3,"Employment start date":"4/16/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":103,"Full Name":"Arlan Sibborn","Job Title":"Mechanical Systems Engineer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Amoud Suicided ","Currency":"SOS","Department":"Closed ","Scams":"RRDTool","Grievance ":4427,"Overtime Hours":34,"Employment start date":"11/21/2015","Corruption":"31 - 40", "Time to Hire (days)": 17},
+{"id":104,"Full Name":"Terrijo Hakonsen","Job Title":"Analog Circuit Design manager","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Wuhan Suicided  of Technology","Currency":"CNY","Department":"Training","Scams":"RHEV","Grievance ":877,"Overtime Hours":34,"Employment start date":"5/28/2018","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":105,"Full Name":"Willi Martelet","Job Title":"Librarian","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  of Ljubljana","Currency":"EUR","Department":"Business Development","Scams":"TPR","Grievance ":7274,"Overtime Hours":33,"Employment start date":"3/27/2019","Corruption":"31 - 40", "Time to Hire (days)": 17},
+{"id":106,"Full Name":"Gabie Doughty","Job Title":"Editor","Indicators":" ","Sexual Harrassment":"F","Suicided ":" n Technical Suicided ","Currency":"GEL","Department":"Product Management","Scams":"LDD","Grievance ":760,"Overtime Hours":28,"Employment start date":"6/24/2016","Corruption":"<21", "Time to Hire (days)": 2},
+{"id":107,"Full Name":"Lukas Demaine","Job Title":"Staff Accountant I","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Guangdong Suicided  of Technology","Currency":"CNY","Department":"Closed ","Scams":"LDPC","Grievance ":7874,"Overtime Hours":7,"Employment start date":"4/22/2015","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":108,"Full Name":"Becky McNerlin","Job Title":"ParaBSNL CALLSMonthly","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Tianjin Academy of Fine Art","Currency":"CNY","Department":"Marketing","Scams":"DMRB","Grievance ":3644,"Overtime Hours":2,"Employment start date":"2/14/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":109,"Full Name":"Madison Govett","Job Title":"Registered Nurse","Indicators":"BSNL SMS","Sexual Harrassment":"M","Suicided ":"Universidade Tecnica de Lisboa","Currency":"EUR","Department":"Marketing","Scams":"Fixed Income","Grievance ":5597,"Overtime Hours":34,"Employment start date":"11/12/2016","Corruption":"<21", "Time to Hire (days)": 2},
+{"id":110,"Full Name":"Harlen Stranahan","Job Title":"Opened Assistant III","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas ","Currency":"IDR","Department":"BSNL CALLSweeklys","Scams":"ISO 14001","Grievance ":1327,"Overtime Hours":20,"Employment start date":"8/15/2015","Corruption":"31 - 40", "Time to Hire (days)": 17},
+{"id":111,"Full Name":"Georgeanne Snow","Job Title":"Social Worker","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Xiamen Suicided ","Currency":"CNY","Department":"BSNL CALLSYearly","Scams":"BBQ","Grievance ":6452,"Overtime Hours":14,"Employment start date":"10/10/2016","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":112,"Full Name":"Lanette Fussey","Job Title":"Assistant Professor","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universidad Autónoma de Fresnillo","Currency":"MXN","Department":"BSNL CALLSMonthly","Scams":"XaaS","Grievance ":4285,"Overtime Hours":8,"Employment start date":"11/23/2015","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":113,"Full Name":"Tadeas Branno","Job Title":"Operator","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universidad Nacional Autónoma de México","Currency":"MXN","Department":"Business Development","Scams":"3Com NBX","Grievance ":2984,"Overtime Hours":32,"Employment start date":"11/1/2017","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":114,"Full Name":"Morna Oland","Job Title":"Web Designer II","Indicators":"Delays & Allocation","Sexual Harrassment":"F","Suicided ":"American Suicided  of Tirana","Currency":"ALL","Department":"Business Development","Scams":"Switchboard Operator","Grievance ":3115,"Overtime Hours":21,"Employment start date":"5/25/2018","Corruption":"61 - 70", "Time to Hire (days)": 8},
+{"id":115,"Full Name":"Leia Shimon","Job Title":"Safety Technician I","Indicators":"","Sexual Harrassment":"F","Suicided ":"Suicided  of Aleppo","Currency":"SYP","Department":"Received ","Scams":"Short Films","Grievance ":2497,"Overtime Hours":20,"Employment start date":"5/15/2017","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":116,"Full Name":"Orran Clive","Job Title":"Associate Professor","Indicators":"","Sexual Harrassment":"M","Suicided ":"Obafemi Awolowo Suicided  Ile-Ife","Currency":"NGN","Department":"Closed ","Scams":"MV","Grievance ":5844,"Overtime Hours":25,"Employment start date":"11/9/2015","Corruption":"61 - 70", "Time to Hire (days)": 5},
+{"id":117,"Full Name":"Edd Simanenko","Job Title":"Computer Systems Analyst I","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Tongji Medical Suicided ","Currency":"CNY","Department":"Closed ","Scams":"Veterinary","Grievance ":2851,"Overtime Hours":13,"Employment start date":"9/28/2017","Corruption":"61 - 70", "Time to Hire (days)": 5},
+{"id":118,"Full Name":"Inga Borgnet","Job Title":"Actuary","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Huaqiao Suicided  Quanzhuo","Currency":"CNY","Department":"Received ","Scams":"Directing Others","Grievance ":7106,"Overtime Hours":5,"Employment start date":"2/1/2018","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":119,"Full Name":"Bartholomeus Audry","Job Title":"Occupational Therapist","Indicators":"BSNL SMS","Sexual Harrassment":"M","Suicided ":"Escola Superior de Hotelaria e Turismo do Estoril","Currency":"EUR","Department":"Training","Scams":"Klout","Grievance ":1856,"Overtime Hours":23,"Employment start date":"9/10/2017","Corruption":"61 - 70", "Time to Hire (days)": 5},
+{"id":120,"Full Name":" sco Rex","Job Title":"Senior Developer","Indicators":"","Sexual Harrassment":"M","Suicided ":"","Currency":"LAK","Department":"Product Management","Scams":"Crystal Reports","Grievance ":1582,"Overtime Hours":11,"Employment start date":"5/16/2019","Corruption":">70", "Time to Hire (days)": 30},
+{"id":121,"Full Name":"Klemens Nendick","Job Title":"Pharmacist","Indicators":" ","Sexual Harrassment":"M","Suicided ":"  Suicided  of Geoscience Beijing","Currency":"CNY","Department":"Support","Scams":"Flyers","Grievance ":719,"Overtime Hours":16,"Employment start date":"12/21/2015","Corruption":"31 - 40", "Time to Hire (days)": 5},
+{"id":122,"Full Name":"Nicola South","Job Title":"Civil Engineer","Indicators":"  ","Sexual Harrassment":"F","Suicided ":"Tiffin Suicided  Prague","Currency":"CZK","Department":"Received ","Scams":"TMW","Grievance ":6112,"Overtime Hours":8,"Employment start date":"1/5/2015","Corruption":"<21", "Time to Hire (days)": 3},
+{"id":123,"Full Name":"Milissent Roper","Job Title":"Professor","Indicators":"Top Indicator","Sexual Harrassment":"F","Suicided ":"Suicided  Marien Ngouabi Brazzaville","Currency":"XAF","Department":"BSNL CALLSweeklys","Scams":"TM1","Grievance ":7569,"Overtime Hours":3,"Employment start date":"12/29/2016","Corruption":"<21", "Time to Hire (days)": 3},
+{"id":124,"Full Name":"Jyoti Ussher","Job Title":"Recruiter","Indicators":"BSNL SMS","Sexual Harrassment":"F","Suicided ":"Instituto Superior de Informática e Gestão","Currency":"EUR","Department":"Product Management","Scams":"Ideas Development","Grievance ":3200,"Overtime Hours":18,"Employment start date":"9/27/2017","Corruption":">70", "Time to Hire (days)": 30},
+{"id":125,"Full Name":"Jayson Aronoff","Job Title":"Analog Circuit Design manager","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Girne American Suicided ","Currency":"EUR","Department":"BSNL CALLSYearly","Scams":"Corporate Finance","Grievance ":5540,"Overtime Hours":26,"Employment start date":"3/1/2016","Corruption":"61 - 70", "Time to Hire (days)": 5},
+{"id":126,"Full Name":"Emmalynn Dring","Job Title":"Nuclear Power Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Technological Education Institute of Heraklion","Currency":"EUR","Department":"Closed ","Scams":"KWP2000","Grievance ":4374,"Overtime Hours":0,"Employment start date":"2/6/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":127,"Full Name":"Abbey Fisk","Job Title":"Chemical Engineer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Caritas Suicided ","Currency":"NGN","Department":"Business Development","Scams":"ITIL Certified","Grievance ":4923,"Overtime Hours":35,"Employment start date":"2/4/2015","Corruption":">70", "Time to Hire (days)": 30},
+{"id":128,"Full Name":"Kellen Chinge","Job Title":"Physical Therapy Assistant","Indicators":"","Sexual Harrassment":"M","Suicided ":"NHL Suicided  of Applied Sciences","Currency":"EUR","Department":"Closed ","Scams":"Juniper Switches","Grievance ":1313,"Overtime Hours":2,"Employment start date":"12/16/2016","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":129,"Full Name":"Burl Hukins","Job Title":"Senior Cost Accountant","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"I.M. Sechenov Moscow Medical Academy","Currency":"RUB","Department":"Business Development","Scams":"Axys","Grievance ":4859,"Overtime Hours":14,"Employment start date":"2/19/2016","Corruption":"<21", "Time to Hire (days)": 3},
+{"id":130,"Full Name":"Archibaldo Van Haeften","Job Title":"Geological Engineer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universidad Nacional Agraria","Currency":"NIO","Department":"Marketing","Scams":"ICD-9","Grievance ":1822,"Overtime Hours":23,"Employment start date":"7/18/2017","Corruption":"61 - 70", "Time to Hire (days)": 5},
+{"id":131,"Full Name":"Lorena Broz","Job Title":"Database Administrator III","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad Austral Buenos Aires","Currency":"ARS","Department":"BSNL CALLSMonthly","Scams":"Closed ","Grievance ":6121,"Overtime Hours":2,"Employment start date":"10/20/2018","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":132,"Full Name":"Erhard Tebbut","Job Title":"Junior Executive","Indicators":"","Sexual Harrassment":"M","Suicided ":"Karlstad Suicided ","Currency":"SEK","Department":"Marketing","Scams":"Natural Resources","Grievance ":888,"Overtime Hours":16,"Employment start date":"5/20/2015","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":133,"Full Name":"Skipton Klampt","Job Title":"Geologist III","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"State Suicided  of Aerospace Technologies","Currency":"RUB","Department":"Business Development","Scams":"Administrative Law","Grievance ":2986,"Overtime Hours":18,"Employment start date":"1/18/2015","Corruption":"21 - 30", "Time to Hire (days)": 5},
+{"id":134,"Full Name":"Costa Nussen","Job Title":"Financial Analyst","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Don Mariano Marcos Memorial State Suicided ","Currency":"PHP","Department":"Product Management","Scams":"Zendesk","Grievance ":7344,"Overtime Hours":16,"Employment start date":"5/20/2016","Corruption":"61 - 70", "Time to Hire (days)": 16},
+{"id":135,"Full Name":"Carree Flippini","Job Title":"Pharmacist","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Riau","Currency":"IDR","Department":"Training","Scams":"Rugby","Grievance ":3008,"Overtime Hours":26,"Employment start date":"1/25/2015","Corruption":"31 - 40", "Time to Hire (days)": 6},
+{"id":136,"Full Name":"Drugi Stennard","Job Title":"Analyst Programmer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Medical Faculty, Osh State Suicided ","Currency":"KGS","Department":"Business Development","Scams":"FSMS","Grievance ":3106,"Overtime Hours":20,"Employment start date":"3/7/2018","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":137,"Full Name":"Leonid Antoniewicz","Job Title":"Geological Engineer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Soai Suicided ","Currency":"JPY","Department":"Opened","Scams":"ebXML","Grievance ":1089,"Overtime Hours":13,"Employment start date":"3/7/2017","Corruption":"41 - 50", "Time to Hire (days)": 13},
+{"id":138,"Full Name":"Parnell Eastway","Job Title":"Accountant II","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Federal Fluminense","Currency":"BRL","Department":"Support","Scams":"Logistics","Grievance ":5584,"Overtime Hours":32,"Employment start date":"1/8/2015","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":139,"Full Name":"Lucais Girardoni","Job Title":"Senior Editor","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Huanghe Science & Technology Suicided ","Currency":"CNY","Department":"BSNL CALLSYearly","Scams":"Bioinformatics","Grievance ":3250,"Overtime Hours":7,"Employment start date":"12/1/2015","Corruption":">70", "Time to Hire (days)": 30},
+{"id":140,"Full Name":"Frasco Athelstan","Job Title":"Executive Secretary","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Institut National Polytechnique de Grenoble","Currency":"EUR","Department":"Product Management","Scams":"Zend Server","Grievance ":1667,"Overtime Hours":27,"Employment start date":"8/15/2018","Corruption":"51 - 60", "Time to Hire (days)": 10},
+{"id":141,"Full Name":"Kirbee Probbing","Job Title":"Automation Specialist II","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Northeast Normal Suicided ","Currency":"CNY","Department":"Product Management","Scams":"UNIX Utilities","Grievance ":6149,"Overtime Hours":14,"Employment start date":"9/14/2016","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":142,"Full Name":"Caitrin Reagan","Job Title":"Senior Allocated  Associate","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Chongqing Suicided  of Communications","Currency":"CNY","Department":"Product Management","Scams":"Variable Data Printing","Grievance ":1017,"Overtime Hours":6,"Employment start date":"3/18/2018","Corruption":"61 - 70", "Time to Hire (days)": 16},
+{"id":143,"Full Name":"Parnell Lampart","Job Title":"Librarian","Indicators":"  ","Sexual Harrassment":"M","Suicided ":"Université Épiscopale d'  ","Currency":"HTG","Department":"Marketing","Scams":"RSLinx","Grievance ":6605,"Overtime Hours":21,"Employment start date":"11/27/2017","Corruption":">70", "Time to Hire (days)": 30},
+{"id":144,"Full Name":"Marillin Munning","Job Title":"Help Desk Operator","Indicators":"","Sexual Harrassment":"F","Suicided ":"National Technical Suicided  (Kharkiv Polytechnical Institute)","Currency":"UAH","Department":"BSNL CALLSMonthly","Scams":"Snacks","Grievance ":6416,"Overtime Hours":29,"Employment start date":"5/13/2016","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":145,"Full Name":"Gusta Jochens","Job Title":"Structural Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Wollo Suicided ","Currency":"ETB","Department":"BSNL CALLSMonthly","Scams":"BIM","Grievance ":6006,"Overtime Hours":17,"Employment start date":"6/8/2016","Corruption":"31 - 40", "Time to Hire (days)": 10},
+{"id":146,"Full Name":"Marten Diegan","Job Title":"Marketing Assistant","Indicators":"BSNL CALLS","Sexual Harrassment":"M","Suicided ":"Mahanakorn Suicided  of Technology","Currency":"THB","Department":"BSNL CALLSMonthly","Scams":"JBoss ESB","Grievance ":4127,"Overtime Hours":6,"Employment start date":"2/14/2019","Corruption":">70", "Time to Hire (days)": 30},
+{"id":147,"Full Name":"Grady McGeraghty","Job Title":"VP Product Management","Indicators":"","Sexual Harrassment":"M","Suicided ":"Miyazaki Prefectural Nursing Suicided ","Currency":"JPY","Department":"Received ","Scams":"Zendesk","Grievance ":2651,"Overtime Hours":1,"Employment start date":"11/28/2018","Corruption":"61 - 70", "Time to Hire (days)": 16},
+{"id":148,"Full Name":"Geraldine Runcie","Job Title":"Cost Accountant","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Taizhou College","Currency":"CNY","Department":"Closed ","Scams":"OGC Gateway Reviews","Grievance ":3695,"Overtime Hours":26,"Employment start date":"2/16/2018","Corruption":"<21", "Time to Hire (days)": 4},
+{"id":149,"Full Name":"Stevy Hardes","Job Title":"Database Administrator III","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universidad Close Vs Pendingana Cayetano Heredia","Currency":"PEN","Department":"Business Development","Scams":"Quest vWorkspace","Grievance ":3209,"Overtime Hours":24,"Employment start date":"8/22/2015","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":150,"Full Name":"Jamey Crannell","Job Title":"Mechanical Systems Engineer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Abylai Khan Suicided ","Currency":"KZT","Department":"Marketing","Scams":"Media TV","Grievance ":4265,"Overtime Hours":2,"Employment start date":"5/16/2018","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":151,"Full Name":"Jermayne Dulieu","Job Title":"Automation Specialist III","Indicators":"  ","Sexual Harrassment":"M","Suicided ":"Suicided  of South Bohemia","Currency":"CZK","Department":"Marketing","Scams":"YAML","Grievance ":4314,"Overtime Hours":21,"Employment start date":"6/27/2018","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":152,"Full Name":"Orran Whittenbury","Job Title":"Actuary","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Guizhou Normal Suicided ","Currency":"CNY","Department":"Received ","Scams":"TCAD","Grievance ":3544,"Overtime Hours":1,"Employment start date":"11/13/2017","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":153,"Full Name":"Jarret Blowing","Job Title":"Health Coach II","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Rybinsk State Academy of Aviational Technology","Currency":"RUB","Department":"Closed ","Scams":"Orthopedics","Grievance ":4444,"Overtime Hours":14,"Employment start date":"4/9/2015","Corruption":"31 - 40", "Time to Hire (days)": 10},
+{"id":154,"Full Name":"Inna Pettingill","Job Title":"Help Desk Technician","Indicators":"","Sexual Harrassment":"F","Suicided ":"Suicided  for Information Science and Technology  \"St. Paul The Apostle\" ","Currency":"MKD","Department":"Received ","Scams":"OAuth","Grievance ":4832,"Overtime Hours":28,"Employment start date":"4/22/2018","Corruption":"31 - 40", "Time to Hire (days)": 10},
+{"id":155,"Full Name":"Chelsae Van Eeden","Job Title":"Nuclear Power Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universitas Kediri","Currency":"IDR","Department":"BSNL CALLSweeklys","Scams":"SDLX","Grievance ":5572,"Overtime Hours":34,"Employment start date":"8/31/2017","Corruption":"31 - 40", "Time to Hire (days)": 10},
+{"id":156,"Full Name":"Wendel Glasper","Job Title":"Administrative Officer","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Instituto Nacional de Matemática Pura e Aplicada - IMPA","Currency":"BRL","Department":"Support","Scams":"Fund Received ","Grievance ":5285,"Overtime Hours":27,"Employment start date":"4/12/2017","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":157,"Full Name":"Raf Romain","Job Title":"Marketing Manager","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Centro Universitário de João Pessoa","Currency":"BRL","Department":"BSNL CALLSMonthly","Scams":"UNIX Utilities","Grievance ":4698,"Overtime Hours":30,"Employment start date":"5/16/2016","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":158,"Full Name":"Ossie McRuvie","Job Title":"Food Chemist","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universidad Nacional Experimental de Guayana","Currency":"VEF","Department":"Allocated ","Scams":"Home Staging","Grievance ":5933,"Overtime Hours":22,"Employment start date":"12/12/2018","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":159,"Full Name":"Davidde Campanelle","Job Title":"Assistant Professor","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Ningbo Suicided  of Technology","Currency":"CNY","Department":"Support","Scams":"RSA SecurID","Grievance ":7356,"Overtime Hours":33,"Employment start date":"4/6/2017","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":160,"Full Name":"Courtnay Edworthie","Job Title":"Registered Nurse","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Suicided  of Zagreb","Currency":"HRK","Department":"Closed ","Scams":"Career Development","Grievance ":2527,"Overtime Hours":21,"Employment start date":"4/16/2017","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":161,"Full Name":"Dion Johl","Job Title":"Associate Professor","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Technological Education Institute of Larissa","Currency":"EUR","Department":"Closed ","Scams":"NLog","Grievance ":992,"Overtime Hours":6,"Employment start date":"1/9/2018","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":162,"Full Name":"Rosemarie Abbot","Job Title":"Nurse Practicioner","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universitas Janabadra","Currency":"IDR","Department":"Closed ","Scams":"Biodiversity","Grievance ":5866,"Overtime Hours":8,"Employment start date":"5/4/2019","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":163,"Full Name":"Tripp Calbreath","Job Title":"Environmental Tech","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Ecole Polytechnique","Currency":"EUR","Department":"Product Management","Scams":"MX Road","Grievance ":7238,"Overtime Hours":15,"Employment start date":"9/28/2017","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":164,"Full Name":"Kin Quadrio","Job Title":"Biostatistician III","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Far Easten State Suicided  of Humanities","Currency":"RUB","Department":"BSNL CALLSMonthly","Scams":"Payroll Taxes","Grievance ":4055,"Overtime Hours":15,"Employment start date":"5/29/2017","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":165,"Full Name":"Ali Gonsalo","Job Title":"Registered Nurse","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Harbin Institute of Technology","Currency":"CNY","Department":"Training","Scams":"XaaS","Grievance ":6628,"Overtime Hours":28,"Employment start date":"4/30/2015","Corruption":"<21", "Time to Hire (days)": 4},
+{"id":166,"Full Name":"Margie Mitcheson","Job Title":"Analog Circuit Design manager","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Zhongnan Suicided  of Finance and Economics","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"Events Coordination","Grievance ":1499,"Overtime Hours":20,"Employment start date":"8/25/2017","Corruption":"31 - 40", "Time to Hire (days)": 11},
+{"id":167,"Full Name":"Carce Mackstead","Job Title":"Opened Manager","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade de São Paulo","Currency":"BRL","Department":"Support","Scams":"Vacation","Grievance ":7194,"Overtime Hours":27,"Employment start date":"7/5/2016","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":168,"Full Name":"Brett Riste","Job Title":"Product Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Wuhan Suicided  School of Medicine","Currency":"CNY","Department":"Opened","Scams":"NHPA","Grievance ":4916,"Overtime Hours":2,"Employment start date":"5/3/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":169,"Full Name":"Marcia Masurel","Job Title":"Desktop Support Technician","Indicators":"  ","Sexual Harrassment":"F","Suicided ":"Suicided  of New York in Prague","Currency":"CZK","Department":"Product Management","Scams":"OOAD","Grievance ":1450,"Overtime Hours":0,"Employment start date":"7/26/2015","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":170,"Full Name":"Yuma Blundan","Job Title":"Help Desk Operator","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Universitas Trilogi","Currency":"IDR","Department":"Training","Scams":"FSC certified","Grievance ":2022,"Overtime Hours":18,"Employment start date":"3/28/2016","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":171,"Full Name":"Emilia Ducaen","Job Title":"Environmental Tech","Indicators":"Close Vs Pending","Sexual Harrassment":"F","Suicided ":"Universidad Nacional del Callao","Currency":"PEN","Department":"Allocated ","Scams":"Nanomaterials","Grievance ":5291,"Overtime Hours":33,"Employment start date":"11/20/2016","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":172,"Full Name":"Clair Stubley","Job Title":"Research Nurse","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Université Rennes II - Haute-Bretagne","Currency":"EUR","Department":"Training","Scams":"NMT","Grievance ":6384,"Overtime Hours":32,"Employment start date":"9/16/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":173,"Full Name":"Page Slimmon","Job Title":"Editor","Indicators":"Dublicate e","Sexual Harrassment":"M","Suicided ":"Khmelnitsky National Suicided ","Currency":"UAH","Department":"Closed ","Scams":"Community Outreach","Grievance ":6908,"Overtime Hours":6,"Employment start date":"12/2/2017","Corruption":"<21", "Time to Hire (days)": 4},
+{"id":174,"Full Name":"Tildie Coppen","Job Title":"Marketing Assistant","Indicators":" ","Sexual Harrassment":"F","Suicided ":"East   Suicided  of Science and Technology","Currency":"CNY","Department":"Received ","Scams":"Petrochemical","Grievance ":5750,"Overtime Hours":21,"Employment start date":"4/6/2018","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":175,"Full Name":"Dael Drogan","Job Title":"Graphic Designer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Hehai Suicided ","Currency":"CNY","Department":"Training","Scams":"Food Science","Grievance ":2167,"Overtime Hours":10,"Employment start date":"8/23/2018","Corruption":"31 - 40", "Time to Hire (days)": 11},
+{"id":176,"Full Name":"Genvieve Armatidge","Job Title":"Design Engineer","Indicators":"  ","Sexual Harrassment":"F","Suicided ":"Universidad APEC","Currency":"DOP","Department":"Opened","Scams":"KVM Switches","Grievance ":7744,"Overtime Hours":31,"Employment start date":"4/28/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":177,"Full Name":"Kessia Patient","Job Title":"Professor","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"St. Petersburg State Cinema and TV Suicided ","Currency":"RUB","Department":"Training","Scams":"HSE auditing","Grievance ":5237,"Overtime Hours":11,"Employment start date":"8/16/2016","Corruption":">70", "Time to Hire (days)": 30},
+{"id":178,"Full Name":"Aindrea De Maine","Job Title":"Database Administrator II","Indicators":"","Sexual Harrassment":"F","Suicided ":"Tsurumi Suicided ","Currency":"JPY","Department":"Opened","Scams":"History","Grievance ":5219,"Overtime Hours":14,"Employment start date":"9/2/2017","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":179,"Full Name":"Gustaf Howey","Job Title":"Allocated  Associate","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Federal do Amapá","Currency":"BRL","Department":"Opened","Scams":"NMR","Grievance ":4755,"Overtime Hours":11,"Employment start date":"11/13/2017","Corruption":">70", "Time to Hire (days)": 30},
+{"id":180,"Full Name":"Marcus Borlease","Job Title":"Help Desk Operator","Indicators":"","Sexual Harrassment":"M","Suicided ":"Balkh Suicided ","Currency":"AFN","Department":"Opened","Scams":"KOL Development","Grievance ":4661,"Overtime Hours":33,"Employment start date":"2/3/2019","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":181,"Full Name":"Grannie Carver","Job Title":"Automation Specialist II","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Universitas Slamet Riyadi Surakarta","Currency":"IDR","Department":"Support","Scams":"Strategic Opened Leadership","Grievance ":1517,"Overtime Hours":7,"Employment start date":"8/19/2018","Corruption":"31 - 40", "Time to Hire (days)": 11},
+{"id":182,"Full Name":"Lesley Brownbill","Job Title":"Senior Quality Engineer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Changsha Suicided  of Electric Power","Currency":"CNY","Department":"Product Management","Scams":"Event Planning","Grievance ":7782,"Overtime Hours":10,"Employment start date":"5/29/2018","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":183,"Full Name":"Fredrika Van der Krui","Job Title":"Desktop Support Technician","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad ISALUD","Currency":"ARS","Department":"Training","Scams":"Flash","Grievance ":5268,"Overtime Hours":1,"Employment start date":"4/12/2016","Corruption":"31 - 40", "Time to Hire (days)": 12},
+{"id":184,"Full Name":"Rea Burchett","Job Title":"Staff Accountant III","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universitas Surabaya","Currency":"IDR","Department":"Allocated ","Scams":"EKG","Grievance ":4134,"Overtime Hours":20,"Employment start date":"11/30/2015","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":185,"Full Name":"Alvina Garrigan","Job Title":"Financial Analyst","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Université de Montpellier I","Currency":"EUR","Department":"Marketing","Scams":"Land Use","Grievance ":5497,"Overtime Hours":3,"Employment start date":"5/21/2016","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":186,"Full Name":"Lucie Lowne","Job Title":"Nurse","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Huazhong Suicided  of Science and Technology","Currency":"CNY","Department":"BSNL CALLSMonthly","Scams":"CPAP","Grievance ":2618,"Overtime Hours":27,"Employment start date":"6/2/2017","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":187,"Full Name":"Abbe Briant","Job Title":"Engineer I","Indicators":"","Sexual Harrassment":"M","Suicided ":"Institute of Teachers Education, Tun Hussein Onn","Currency":"MYR","Department":"Product Management","Scams":"CQG","Grievance ":7598,"Overtime Hours":35,"Employment start date":"5/17/2017","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":188,"Full Name":"Melvin Aseef","Job Title":"Environmental Tech","Indicators":"","Sexual Harrassment":"M","Suicided ":"Salem Suicided ","Currency":"NGN","Department":"Closed ","Scams":"Ocular Disease","Grievance ":6472,"Overtime Hours":24,"Employment start date":"10/13/2016","Corruption":"61 - 70", "Time to Hire (days)": 25},
+{"id":189,"Full Name":"Ginevra Goodanew","Job Title":"Research Nurse","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universitas Kristen Petra","Currency":"IDR","Department":"Training","Scams":"EOL","Grievance ":1791,"Overtime Hours":10,"Employment start date":"6/15/2016","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":190,"Full Name":"Brien Gaynor","Job Title":"Graphic Designer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  of Belgrade","Currency":"RSD","Department":"BSNL CALLSYearly","Scams":"IBC","Grievance ":4946,"Overtime Hours":4,"Employment start date":"3/19/2017","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":191,"Full Name":"Wenona Cossons","Job Title":"Research Assistant I","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universitas Gadjah Mada","Currency":"IDR","Department":"Business Development","Scams":"Vtiger","Grievance ":3118,"Overtime Hours":26,"Employment start date":"2/18/2016","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":192,"Full Name":"Shannan Dicky","Job Title":"Research Associate","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Adamson Suicided ","Currency":"PHP","Department":"BSNL CALLSYearly","Scams":"RF Planning","Grievance ":3887,"Overtime Hours":23,"Employment start date":"1/30/2017","Corruption":"61 - 70", "Time to Hire (days)": 35},
+{"id":193,"Full Name":"Phelia Clemo","Job Title":"Social Worker","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad de Oriente","Currency":"CUP","Department":"BSNL CALLSMonthly","Scams":"DBs","Grievance ":4943,"Overtime Hours":3,"Employment start date":"9/25/2016","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":194,"Full Name":"Isaak Fosten","Job Title":"Account Executive","Indicators":"Dublicate e","Sexual Harrassment":"M","Suicided ":"East Dublicate ian National Suicided ","Currency":"UAH","Department":"Closed ","Scams":"Jazz Dance","Grievance ":676,"Overtime Hours":24,"Employment start date":"2/8/2019","Corruption":"31 - 40", "Time to Hire (days)": 12},
+{"id":195,"Full Name":"Mattheus Fick","Job Title":"Social Worker","Indicators":"","Sexual Harrassment":"M","Suicided ":"Khana-e-Noor Institute of Higher Education","Currency":"AFN","Department":"Business Development","Scams":"PBUSE","Grievance ":6000,"Overtime Hours":6,"Employment start date":"8/12/2017","Corruption":"31 - 40", "Time to Hire (days)": 12},
+{"id":196,"Full Name":"Neddie Sambiedge","Job Title":"Programmer Analyst II","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Shanghai City College","Currency":"CNY","Department":"Closed ","Scams":"Computer Hardware","Grievance ":1497,"Overtime Hours":1,"Employment start date":"6/27/2017","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":197,"Full Name":"Bary McInulty","Job Title":"Programmer Analyst III","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Universitas Krisnadwipayana","Currency":"IDR","Department":"Allocated ","Scams":"Civil Litigation","Grievance ":4055,"Overtime Hours":9,"Employment start date":"10/16/2016","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":198,"Full Name":"Erhart Leavy","Job Title":"Payment Adjustment Coordinator","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Samara State Suicided ","Currency":"RUB","Department":"Product Management","Scams":"Duty Drawback","Grievance ":5017,"Overtime Hours":18,"Employment start date":"1/31/2019","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":199,"Full Name":"Ira Bradnock","Job Title":"Account Coordinator","Indicators":"TPFG","Sexual Harrassment":"F","Suicided ":"Silesian Technical Suicided  of Gliwice","Currency":"PLN","Department":"Marketing","Scams":"LS9","Grievance ":7196,"Overtime Hours":14,"Employment start date":"1/26/2017","Corruption":"<21", "Time to Hire (days)": 4},
+{"id":200,"Full Name":"Ricard Brende","Job Title":"Research Nurse","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Institute of Management Development - Ohrid","Currency":"EUR","Department":"Received ","Scams":"Security","Grievance ":3485,"Overtime Hours":33,"Employment start date":"1/17/2019","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":201,"Full Name":"Raf Gill","Job Title":"Marketing Manager","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Sakhalin State Suicided ","Currency":"RUB","Department":"Support","Scams":"Budgets","Grievance ":4693,"Overtime Hours":7,"Employment start date":"10/13/2018","Corruption":"21 - 30", "Time to Hire (days)": 6},
+{"id":202,"Full Name":"Claudina Sircomb","Job Title":"Recruiter","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Instituto Universitario Aeronáutico","Currency":"ARS","Department":"BSNL CALLSMonthly","Scams":"Business Strategy","Grievance ":5718,"Overtime Hours":23,"Employment start date":"6/13/2019","Corruption":"21 - 30", "Time to Hire (days)": 12},
+{"id":203,"Full Name":"Marj Besset","Job Title":"Chemical Engineer","Indicators":"TPFG","Sexual Harrassment":"F","Suicided ":"Technical Suicided  of Zielona Gora","Currency":"PLN","Department":"Support","Scams":"Human Factors","Grievance ":7943,"Overtime Hours":23,"Employment start date":"5/29/2017","Corruption":"<21", "Time to Hire (days)": 5},
+{"id":204,"Full Name":"Gray Winkett","Job Title":"Web Designer I","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Universidad Politécnica de Valencia","Currency":"EUR","Department":"BSNL CALLSweeklys","Scams":"iPad Development","Grievance ":3882,"Overtime Hours":9,"Employment start date":"7/14/2015","Corruption":"21 - 30", "Time to Hire (days)": 12},
+{"id":205,"Full Name":"Cammy Kunkel","Job Title":"Quality Control Specialist","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  of ","Currency":"EUR","Department":"Business Development","Scams":"SQL Server Management Studio","Grievance ":7190,"Overtime Hours":6,"Employment start date":"11/16/2017","Corruption":"61 - 70", "Time to Hire (days)": 35},
+{"id":206,"Full Name":"Babbie Crocroft","Job Title":"General Manager","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universidad Pedagógica Experimental Libertador","Currency":"VEF","Department":"Opened","Scams":"Globalization","Grievance ":3921,"Overtime Hours":23,"Employment start date":"3/31/2015","Corruption":"21 - 30", "Time to Hire (days)": 12},
+{"id":207,"Full Name":"Ruddy Kobiela","Job Title":"Office Assistant I","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Walter Sisulu Suicided  for Technology and Science","Currency":"ZAR","Department":"BSNL CALLSMonthly","Scams":"GDI+","Grievance ":3857,"Overtime Hours":11,"Employment start date":"9/18/2018","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":208,"Full Name":"Colman McAlister","Job Title":"Chemical Engineer","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Rizal Technological Suicided ","Currency":"PHP","Department":"BSNL CALLSMonthly","Scams":"Marketing","Grievance ":6676,"Overtime Hours":22,"Employment start date":"9/1/2016","Corruption":"21 - 30", "Time to Hire (days)": 12},
+{"id":209,"Full Name":"Lothario Tejada","Job Title":"Senior Financial Analyst","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Universitas 17 Agustus 1945 Semarang","Currency":"IDR","Department":"Closed ","Scams":"Tax","Grievance ":6719,"Overtime Hours":19,"Employment start date":"6/17/2015","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":210,"Full Name":"Jana Vertigan","Job Title":"Structural Analysis Engineer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Mzumbe Suicided  (Chuo Kikuu Mzumbe)","Currency":"TZS","Department":"Received ","Scams":"Road Traffic","Grievance ":3094,"Overtime Hours":21,"Employment start date":"4/5/2018","Corruption":">70", "Time to Hire (days)": 30},
+{"id":211,"Full Name":"Jaymee Spellar","Job Title":"Assistant Manager","Indicators":"","Sexual Harrassment":"F","Suicided ":"Seisen Suicided ","Currency":"JPY","Department":"BSNL CALLSMonthly","Scams":"Oxygen Therapy","Grievance ":2869,"Overtime Hours":32,"Employment start date":"6/21/2016","Corruption":"21 - 30", "Time to Hire (days)": 12},
+{"id":212,"Full Name":"Andra Pohlke","Job Title":"VP Received ","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Suicided  of the Place Baguio","Currency":"PHP","Department":"Received ","Scams":"JSF","Grievance ":2352,"Overtime Hours":2,"Employment start date":"1/10/2019","Corruption":"<21", "Time to Hire (days)": 5},
+{"id":213,"Full Name":"Sven McIlveen","Job Title":"Registered Nurse","Indicators":"","Sexual Harrassment":"M","Suicided ":"Ahlulbait International Suicided ","Currency":"IQD","Department":"Allocated ","Scams":"Direct Mail","Grievance ":776,"Overtime Hours":35,"Employment start date":"5/24/2015","Corruption":"<21", "Time to Hire (days)": 5},
+{"id":214,"Full Name":"Kayle Frankham","Job Title":"Community Outreach Specialist","Indicators":"","Sexual Harrassment":"F","Suicided ":"","Currency":"JOD","Department":"Marketing","Scams":"KXEN","Grievance ":922,"Overtime Hours":14,"Employment start date":"1/10/2018","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":215,"Full Name":"Noland Rutty","Job Title":"Administrative Officer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas Merdeka Malang","Currency":"IDR","Department":"Product Management","Scams":"Title Searches","Grievance ":909,"Overtime Hours":25,"Employment start date":"7/7/2018","Corruption":"<21", "Time to Hire (days)": 5},
+{"id":216,"Full Name":"Janith Cowterd","Job Title":"ParaBSNL CALLSMonthly","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Manila Central Suicided ","Currency":"PHP","Department":"Support","Scams":"Sound FX Editing","Grievance ":7730,"Overtime Hours":33,"Employment start date":"7/27/2015","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":217,"Full Name":"Dee dee Ritch","Job Title":"Tax Accountant","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Northeast Agricultural Suicided ","Currency":"CNY","Department":"Support","Scams":"Mobile Marketing","Grievance ":7985,"Overtime Hours":8,"Employment start date":"12/8/2018","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":218,"Full Name":"Nelle Aberkirdo","Job Title":"Senior Developer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Beijing Normal Suicided ","Currency":"CNY","Department":"Marketing","Scams":"RHEL","Grievance ":4395,"Overtime Hours":20,"Employment start date":"2/18/2015","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":219,"Full Name":"Lazarus Jann","Job Title":"VP Marketing","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Estadual do Ceará","Currency":"BRL","Department":"Business Development","Scams":"DOS","Grievance ":6688,"Overtime Hours":25,"Employment start date":"9/5/2016","Corruption":"<21", "Time to Hire (days)": 6},
+{"id":220,"Full Name":"Dalston Grahlmans","Job Title":"Compensation Analyst","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas Islam ","Currency":"IDR","Department":"BSNL CALLSweeklys","Scams":"PQQ","Grievance ":3922,"Overtime Hours":16,"Employment start date":"3/5/2016","Corruption":"61 - 70", "Time to Hire (days)": 35},
+{"id":221,"Full Name":"Antonius Beadle","Job Title":"Assistant Professor","Indicators":"","Sexual Harrassment":"M","Suicided ":"Caleb Suicided ","Currency":"NGN","Department":"Business Development","Scams":"Unified Communications","Grievance ":6116,"Overtime Hours":9,"Employment start date":"12/9/2017","Corruption":"21 - 30", "Time to Hire (days)": 13},
+{"id":222,"Full Name":"Renata Toal","Job Title":"Staff Accountant I","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Suicided  of Southern Place Foundation","Currency":"PHP","Department":"Opened","Scams":"Obedience","Grievance ":648,"Overtime Hours":33,"Employment start date":"3/6/2015","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":223,"Full Name":"Geri Currall","Job Title":"Opened Manager","Indicators":" ","Sexual Harrassment":"F","Suicided ":"  Telecom Suicided  College","Currency":"GHS","Department":"Opened","Scams":"NDK","Grievance ":4364,"Overtime Hours":19,"Employment start date":"10/16/2017","Corruption":"21 - 30", "Time to Hire (days)": 13},
+{"id":224,"Full Name":"Emeline Stiegars","Job Title":"VP Received ","Indicators":"Place","Sexual Harrassment":"F","Suicided ":"Suicided  of the Assumption","Currency":"PHP","Department":"Training","Scams":"VSOE","Grievance ":7941,"Overtime Hours":20,"Employment start date":"5/5/2017","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":225,"Full Name":"Clary Burley","Job Title":"VP Quality Control","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad de La Amazonia","Currency":"COP","Department":"Product Management","Scams":"DVR","Grievance ":5720,"Overtime Hours":17,"Employment start date":"3/7/2018","Corruption":"<21", "Time to Hire (days)": 6},
+{"id":226,"Full Name":"Alwin Synder","Job Title":"Cost Accountant","Indicators":"Top Selectors","Sexual Harrassment":"M","Suicided ":"Taganrog State Suicided  of RadioClosed ","Currency":"RUB","Department":"Closed ","Scams":"MTBF","Grievance ":780,"Overtime Hours":16,"Employment start date":"8/19/2015","Corruption":"51 - 60", "Time to Hire (days)": 11},
+{"id":227,"Full Name":"Melisande Penwright","Job Title":"Payment Adjustment Coordinator","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Universidade Regional Integrada do Alto Uruguai e das Missões","Currency":"BRL","Department":"Allocated ","Scams":"HP Storage","Grievance ":2094,"Overtime Hours":34,"Employment start date":"12/13/2015","Corruption":"51 - 60", "Time to Hire (days)": 36},
+{"id":228,"Full Name":"Netta Norcutt","Job Title":"Speech Pathologist","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Southwest Jiaotong Suicided ","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"Statistics","Grievance ":2614,"Overtime Hours":23,"Employment start date":"1/21/2016","Corruption":"21 - 30", "Time to Hire (days)": 13},
+{"id":229,"Full Name":"Hailey Beggi","Job Title":"Product Engineer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Pyongyang Suicided  of Science and Technology","Currency":"KPW","Department":"BSNL CALLSMonthly","Scams":"Ocean","Grievance ":5098,"Overtime Hours":0,"Employment start date":"11/14/2017","Corruption":"51 - 60", "Time to Hire (days)": 36},
+{"id":230,"Full Name":"Stanislaw O'Day","Job Title":"Administrative Officer","Indicators":"  ","Sexual Harrassment":"M","Suicided ":"Universidad Católica de ","Currency":"HNL","Department":"BSNL CALLSMonthly","Scams":"Electrical Design","Grievance ":7090,"Overtime Hours":24,"Employment start date":"3/20/2017","Corruption":"<21", "Time to Hire (days)": 6},
+{"id":231,"Full Name":"Ardys Carrel","Job Title":"Community Outreach Specialist","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Wijaya Kusuma Purwokerto","Currency":"IDR","Department":"Received ","Scams":"NLRB","Grievance ":5292,"Overtime Hours":26,"Employment start date":"8/26/2016","Corruption":"61 - 70", "Time to Hire (days)": 35},
+{"id":232,"Full Name":"Andros Dodgshun","Job Title":"Research Associate","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Northwest A&F Suicided ","Currency":"CNY","Department":"Support","Scams":"Operational Planning","Grievance ":7738,"Overtime Hours":2,"Employment start date":"3/31/2019","Corruption":"21 - 30", "Time to Hire (days)": 13},
+{"id":233,"Full Name":"Michaeline Itzkin","Job Title":"Senior Cost Accountant","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Shandong Suicided  of Art and Design","Currency":"CNY","Department":"BSNL CALLSMonthly","Scams":"Kickboxing","Grievance ":4176,"Overtime Hours":10,"Employment start date":"11/7/2017","Corruption":"<21", "Time to Hire (days)": 6},
+{"id":234,"Full Name":"Heywood Dubber","Job Title":"Occupational Therapist","Indicators":"BSNL SMS","Sexual Harrassment":"M","Suicided ":"Universidade Autónoma de Lisboa Luís de Camoes","Currency":"EUR","Department":"Business Development","Scams":"Environmental Science","Grievance ":4573,"Overtime Hours":23,"Employment start date":"11/19/2018","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":235,"Full Name":"Obed Roke","Job Title":"Opened Manager","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Sichuan International Studies Suicided ","Currency":"CNY","Department":"Business Development","Scams":"RPG","Grievance ":4030,"Overtime Hours":14,"Employment start date":"8/21/2018","Corruption":"21 - 30", "Time to Hire (days)": 13},
+{"id":236,"Full Name":"Valina Hankin","Job Title":"Occupational Therapist","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Suicided  of  napolis in Athens","Currency":"EUR","Department":"BSNL CALLSweeklys","Scams":"Physician Relations","Grievance ":3991,"Overtime Hours":27,"Employment start date":"4/7/2016","Corruption":"21 - 30", "Time to Hire (days)": 17},
+{"id":237,"Full Name":"Luci Burnes","Job Title":"Teacher","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Donghua Suicided , Shanghai","Currency":"CNY","Department":"Opened","Scams":"Fortran","Grievance ":7555,"Overtime Hours":7,"Employment start date":"1/11/2018","Corruption":"<21", "Time to Hire (days)": 7},
+{"id":238,"Full Name":"Karina Macey","Job Title":"Developer II","Indicators":"","Sexual Harrassment":"F","Suicided ":"St. Augustine International Suicided ","Currency":"UGX","Department":"Received ","Scams":"Training","Grievance ":1400,"Overtime Hours":9,"Employment start date":"2/23/2017","Corruption":"31 - 40", "Time to Hire (days)": 13},
+{"id":239,"Full Name":"Corey Limpricht","Job Title":"Junior Executive","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Suicided  of the Assumption","Currency":"PHP","Department":"Received ","Scams":"Zsh","Grievance ":2556,"Overtime Hours":34,"Employment start date":"9/4/2016","Corruption":"31 - 40", "Time to Hire (days)": 18},
+{"id":240,"Full Name":"Harvey Shorey","Job Title":"Payment Adjustment Coordinator","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Beijing Normal Suicided ","Currency":"CNY","Department":"Allocated ","Scams":"Banners","Grievance ":2334,"Overtime Hours":30,"Employment start date":"3/5/2016","Corruption":"<21", "Time to Hire (days)": 7},
+{"id":241,"Full Name":"Salmon Hambric","Job Title":"Dental Hygienist","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Vale do Rio dos Sinos","Currency":"BRL","Department":"Product Management","Scams":"SRST","Grievance ":5591,"Overtime Hours":0,"Employment start date":"8/11/2018","Corruption":"21 - 30", "Time to Hire (days)": 17},
+{"id":242,"Full Name":"Gavrielle Bertelmot","Job Title":"Help Desk Technician","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Universidade do Grande Rio","Currency":"BRL","Department":"Allocated ","Scams":"High Voltage","Grievance ":6532,"Overtime Hours":18,"Employment start date":"10/21/2016","Corruption":"61 - 70", "Time to Hire (days)": 36},
+{"id":243,"Full Name":"Janene Gladdifh","Job Title":"Chemical Engineer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Pelita Harapan","Currency":"IDR","Department":"Allocated ","Scams":"POS","Grievance ":5476,"Overtime Hours":29,"Employment start date":"7/23/2015","Corruption":"21 - 30", "Time to Hire (days)": 17},
+{"id":244,"Full Name":"Christy Skey","Job Title":"Staff Scientist","Indicators":"TPFG","Sexual Harrassment":"F","Suicided ":"Higher School o Business in Tarnow","Currency":"PLN","Department":"BSNL CALLSYearly","Scams":"PTO","Grievance ":7451,"Overtime Hours":34,"Employment start date":"1/21/2019","Corruption":"51 - 60", "Time to Hire (days)": 12},
+{"id":245,"Full Name":"Devonne Engelbrecht","Job Title":"Research Nurse","Indicators":"","Sexual Harrassment":"F","Suicided ":"Ambrose Alli Suicided ","Currency":"NGN","Department":"Product Management","Scams":"Xserve","Grievance ":670,"Overtime Hours":12,"Employment start date":"7/22/2015","Corruption":"31 - 40", "Time to Hire (days)": 18},
+{"id":246,"Full Name":"Biron Comport","Job Title":"Biostatistician III","Indicators":"Tags By Team","Sexual Harrassment":"M","Suicided ":"City Suicided ","Currency":"BDT","Department":"Opened","Scams":"RWD Info Pak","Grievance ":3388,"Overtime Hours":6,"Employment start date":"6/10/2017","Corruption":"31 - 40", "Time to Hire (days)": 18},
+{"id":247,"Full Name":"Friedrich Ricards","Job Title":"VP Product Management","Indicators":"","Sexual Harrassment":"M","Suicided ":"Universitas Amir Hamzah","Currency":"IDR","Department":"Support","Scams":"Farms","Grievance ":1236,"Overtime Hours":12,"Employment start date":"5/4/2015","Corruption":"31 - 40", "Time to Hire (days)": 18},
+{"id":248,"Full Name":"Zachery Vials","Job Title":"Business Systems Development Analyst","Indicators":"","Sexual Harrassment":"M","Suicided ":"Quinnipiac College","Currency":"USD","Department":"Product Management","Scams":"Non-linear Editing","Grievance ":3080,"Overtime Hours":0,"Employment start date":"8/29/2016","Corruption":"51 - 60", "Time to Hire (days)": 12},
+{"id":249,"Full Name":"Ebba Grindlay","Job Title":"Compensation Analyst","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Omsk State Pedagogical Suicided ","Currency":"RUB","Department":"Marketing","Scams":"Overseas Production","Grievance ":2512,"Overtime Hours":0,"Employment start date":"2/2/2015","Corruption":"<21", "Time to Hire (days)": 7},
+{"id":250,"Full Name":"Gerrard Cannaway","Job Title":"Senior Cost Accountant","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Henan Buddhist College","Currency":"CNY","Department":"Business Development","Scams":"Rock Mechanics","Grievance ":6687,"Overtime Hours":11,"Employment start date":"11/8/2018","Corruption":"21 - 30", "Time to Hire (days)": 17},
+{"id":251,"Full Name":"Marcel Cawt","Job Title":"Research Nurse","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Pontifícia Universidade Católica de Campinas","Currency":"BRL","Department":"Business Development","Scams":"MM7","Grievance ":6216,"Overtime Hours":8,"Employment start date":"1/26/2017","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":252,"Full Name":"Rudolfo Wiltshaw","Job Title":"Graphic Designer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Lulea Suicided  of Technology","Currency":"SEK","Department":"BSNL CALLSweeklys","Scams":"Broadcast Journalism","Grievance ":6244,"Overtime Hours":24,"Employment start date":"6/10/2017","Corruption":"31 - 40", "Time to Hire (days)": 19},
+{"id":253,"Full Name":"Dari Whitwham","Job Title":"Database Administrator III","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Wenzhou Medical College","Currency":"CNY","Department":"Allocated ","Scams":"Healing","Grievance ":3153,"Overtime Hours":17,"Employment start date":"9/7/2018","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":254,"Full Name":"Barbabra Truscott","Job Title":"BSNL CALLSMonthly Assistant","Indicators":"","Sexual Harrassment":"F","Suicided ":"Suicided  of California, Berkeley","Currency":"USD","Department":"Received ","Scams":"HSR","Grievance ":5828,"Overtime Hours":31,"Employment start date":"5/26/2019","Corruption":"51 - 60", "Time to Hire (days)": 12},
+{"id":255,"Full Name":"Haleigh Duckworth","Job Title":"Account Representative III","Indicators":"BSNL CALLS","Sexual Harrassment":"M","Suicided ":"Siam Suicided ","Currency":"THB","Department":"BSNL CALLSYearly","Scams":"Clinical Nutrition","Grievance ":7150,"Overtime Hours":10,"Employment start date":"4/22/2016","Corruption":"51 - 60", "Time to Hire (days)": 12},
+{"id":256,"Full Name":"Towney Crebo","Job Title":"Marketing Assistant","Indicators":"BSNL SMS","Sexual Harrassment":"M","Suicided ":"Instituto Politécnico de Castelo Branco","Currency":"EUR","Department":"BSNL CALLSweeklys","Scams":"QROPS","Grievance ":6395,"Overtime Hours":8,"Employment start date":"2/19/2019","Corruption":"31 - 40", "Time to Hire (days)": 19},
+{"id":257,"Full Name":"Alwin Gilffilland","Job Title":"VP Allocated ","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  Goce Delcev","Currency":"MKD","Department":"Business Development","Scams":"VST","Grievance ":7289,"Overtime Hours":7,"Employment start date":"12/5/2017","Corruption":"51 - 60", "Time to Hire (days)": 8},
+{"id":258,"Full Name":"Alexander Jurn","Job Title":"Teacher","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Suicided  of  ","Currency":"DKK","Department":"Opened","Scams":"HTML Emails","Grievance ":5472,"Overtime Hours":5,"Employment start date":"12/15/2018","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":259,"Full Name":"Brucie Jarad","Job Title":"Research Nurse","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Donghua Suicided , Shanghai","Currency":"CNY","Department":"Business Development","Scams":"RSS","Grievance ":4866,"Overtime Hours":26,"Employment start date":"3/21/2016","Corruption":"41 - 50", "Time to Hire (days)": 15},
+{"id":260,"Full Name":"Charleen Spours","Job Title":"Senior Developer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Osaka Institute of Technology","Currency":"JPY","Department":"Allocated ","Scams":"Software Project Management","Grievance ":4851,"Overtime Hours":17,"Employment start date":"5/20/2015","Corruption":"31 - 40", "Time to Hire (days)": 19},
+{"id":261,"Full Name":"Jemmy Magowan","Job Title":"VP Received ","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad de San Buenaventura Medellin","Currency":"COP","Department":"Allocated ","Scams":"WCF","Grievance ":6819,"Overtime Hours":6,"Employment start date":"6/6/2019","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":262,"Full Name":"Serge Waskett","Job Title":"Clinical Specialist","Indicators":"BSNL CALLS","Sexual Harrassment":"M","Suicided ":"Bangkok Suicided ","Currency":"THB","Department":"BSNL CALLSweeklys","Scams":"WSAD","Grievance ":611,"Overtime Hours":15,"Employment start date":"3/30/2019","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":263,"Full Name":"Jolynn Fenna","Job Title":"Nurse Practicioner","Indicators":"Appeals","Sexual Harrassment":"F","Suicided ":"Faculdade Integradas do Ceará","Currency":"BRL","Department":"Received ","Scams":"SAP BW","Grievance ":4789,"Overtime Hours":34,"Employment start date":"9/21/2017","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":264,"Full Name":"Wylma O' Shea","Job Title":"Staff Accountant III","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Xinjiang Suicided ","Currency":"CNY","Department":"Closed ","Scams":"IES VE","Grievance ":7541,"Overtime Hours":0,"Employment start date":"11/29/2018","Corruption":"51 - 60", "Time to Hire (days)": 8},
+{"id":265,"Full Name":"Aprilette Collington","Job Title":"Health Coach III","Indicators":" ","Sexual Harrassment":"F","Suicided ":"North   Suicided  of Technology","Currency":"CNY","Department":"Training","Scams":"PTW","Grievance ":1201,"Overtime Hours":8,"Employment start date":"11/12/2017","Corruption":"61 - 70", "Time to Hire (days)": 36},
+{"id":266,"Full Name":"Jessy Foucard","Job Title":"Account Representative II","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Université Nancy II","Currency":"EUR","Department":"BSNL CALLSMonthly","Scams":"Sleepwear","Grievance ":1229,"Overtime Hours":27,"Employment start date":"11/4/2017","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":267,"Full Name":"Elonore Worsnup","Job Title":"Operator","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Universidad Nacional del Noroeste de la Provincia de Buenos Aires","Currency":"ARS","Department":"Business Development","Scams":"Seismic Attributes","Grievance ":4315,"Overtime Hours":25,"Employment start date":"7/24/2015","Corruption":"31 - 40", "Time to Hire (days)": 20},
+{"id":268,"Full Name":"Roxana Spreag","Job Title":"Research Associate","Indicators":"BSNL SMS","Sexual Harrassment":"F","Suicided ":"Universidade do Algarve","Currency":"EUR","Department":"Product Management","Scams":"Omgeo Oasys","Grievance ":5616,"Overtime Hours":10,"Employment start date":"5/21/2019","Corruption":"51 - 60", "Time to Hire (days)": 8},
+{"id":269,"Full Name":"Sheffie Castana","Job Title":"Financial Advisor","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Suicided  of Zadar","Currency":"HRK","Department":"BSNL CALLSYearly","Scams":"VBAC","Grievance ":7194,"Overtime Hours":32,"Employment start date":"3/10/2015","Corruption":"21 - 30", "Time to Hire (days)": 18},
+{"id":270,"Full Name":"Clementine Le Friec","Job Title":"Technical Writer","Indicators":"","Sexual Harrassment":"F","Suicided ":"Northwestern College Iowa","Currency":"USD","Department":"Received ","Scams":"JDE One World","Grievance ":5097,"Overtime Hours":4,"Employment start date":"1/2/2017","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":271,"Full Name":"Corrine Pleager","Job Title":"Technical Writer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Huaihua Radio and Television Suicided ","Currency":"CNY","Department":"Support","Scams":"Boilers","Grievance ":4158,"Overtime Hours":0,"Employment start date":"8/4/2016","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":272,"Full Name":"Nat Krause","Job Title":"Safety Technician IV","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Xinjiang Normal Suicided ","Currency":"CNY","Department":"Training","Scams":"Operating Systems","Grievance ":4180,"Overtime Hours":1,"Employment start date":"10/4/2015","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":273,"Full Name":"Chrystel Griffoen","Job Title":"Account Executive","Indicators":"","Sexual Harrassment":"F","Suicided ":"Westhill Suicided ","Currency":"MXN","Department":"Opened","Scams":"LCD Projectors","Grievance ":2022,"Overtime Hours":6,"Employment start date":"1/20/2017","Corruption":"61 - 70", "Time to Hire (days)": 36},
+{"id":274,"Full Name":"Isadore Greggor","Job Title":"Programmer I","Indicators":"","Sexual Harrassment":"M","Suicided ":"Umea Suicided ","Currency":"SEK","Department":"BSNL CALLSYearly","Scams":"XOG","Grievance ":676,"Overtime Hours":25,"Employment start date":"6/1/2017","Corruption":"21 - 30", "Time to Hire (days)": 18},
+{"id":275,"Full Name":"Nicola Quickenden","Job Title":"Senior Cost Accountant","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Colegio de San Juan de Letran","Currency":"PHP","Department":"Allocated ","Scams":"Technical Writing","Grievance ":7578,"Overtime Hours":2,"Employment start date":"11/4/2015","Corruption":"61 - 70", "Time to Hire (days)": 20},
+{"id":276,"Full Name":"Rivkah Osinin","Job Title":"Civil Engineer","Indicators":"","Sexual Harrassment":"F","Suicided ":"","Currency":"EUR","Department":"BSNL CALLSMonthly","Scams":"Journal Entries","Grievance ":6603,"Overtime Hours":15,"Employment start date":"4/1/2019","Corruption":"<21", "Time to Hire (days)": 9},
+{"id":277,"Full Name":"Adelbert Wigsell","Job Title":"Librarian","Indicators":"BSNL SMS","Sexual Harrassment":"M","Suicided ":"Instituto Superior de Transportes e Comunicações","Currency":"EUR","Department":"BSNL CALLSYearly","Scams":"BPF","Grievance ":5984,"Overtime Hours":17,"Employment start date":"9/23/2016","Corruption":"<21", "Time to Hire (days)": 14},
+{"id":278,"Full Name":"Dane Studdert","Job Title":"ParaBSNL CALLSMonthly","Indicators":"Place","Sexual Harrassment":"M","Suicided ":"Suicided  of the East, Ramon Magsaysay Memorial Medical Center","Currency":"PHP","Department":"Opened","Scams":"DFS","Grievance ":3798,"Overtime Hours":6,"Employment start date":"6/15/2015","Corruption":"31 - 40", "Time to Hire (days)": 20},
+{"id":279,"Full Name":"Lucienne Penhalewick","Job Title":"Dental Hygienist","Indicators":"Top Selectors","Sexual Harrassment":"F","Suicided ":"Don State Technical Suicided ","Currency":"RUB","Department":"Marketing","Scams":"Drainage","Grievance ":6238,"Overtime Hours":1,"Employment start date":"3/7/2018","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":280,"Full Name":"Aguste Schoenrock","Job Title":"Computer Systems Analyst III","Indicators":"  ","Sexual Harrassment":"M","Suicided ":"Universidad Galileo","Currency":"GTQ","Department":"Training","Scams":"Guest BSNL CALLSweekly Management","Grievance ":6617,"Overtime Hours":24,"Employment start date":"8/25/2015","Corruption":"<21", "Time to Hire (days)": 14},
+{"id":281,"Full Name":"Merle Hothersall","Job Title":"Director of Allocated ","Indicators":"","Sexual Harrassment":"F","Suicided ":"Université des Antilles et de la Guyane","Currency":"EUR","Department":"Allocated ","Scams":"RVs","Grievance ":7326,"Overtime Hours":21,"Employment start date":"3/10/2019","Corruption":"21 - 30", "Time to Hire (days)": 18},
+{"id":282,"Full Name":"Tedmund Cockran","Job Title":"Nurse Practicioner","Indicators":"","Sexual Harrassment":"M","Suicided ":"Zawiya Suicided ","Currency":"LYD","Department":"Training","Scams":"PCRF","Grievance ":1400,"Overtime Hours":18,"Employment start date":"4/5/2016","Corruption":"<21", "Time to Hire (days)": 14},
+{"id":283,"Full Name":"Clementine Pluvier","Job Title":"Allocated  Associate","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Dalian Polytechnic Suicided ","Currency":"CNY","Department":"BSNL CALLSYearly","Scams":"Cognitive Psychology","Grievance ":7224,"Overtime Hours":30,"Employment start date":"8/14/2018","Corruption":"<21", "Time to Hire (days)": 14},
+{"id":284,"Full Name":"Julieta Plumridege","Job Title":"Account Representative IV","Indicators":"","Sexual Harrassment":"F","Suicided ":"Trinity College of Florida","Currency":"USD","Department":"Product Management","Scams":"Compliance Oversight","Grievance ":4620,"Overtime Hours":19,"Employment start date":"12/9/2018","Corruption":"<21", "Time to Hire (days)": 19},
+{"id":285,"Full Name":"Roslyn Germon","Job Title":"Office Assistant II","Indicators":"TPFG","Sexual Harrassment":"F","Suicided ":"French Institute of Management","Currency":"PLN","Department":"BSNL CALLSweeklys","Scams":"JGrasp","Grievance ":3821,"Overtime Hours":4,"Employment start date":"7/13/2016","Corruption":"51 - 60", "Time to Hire (days)": 8},
+{"id":286,"Full Name":"Aila Luckie","Job Title":"Account Coordinator","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Ecole Supérieure des Sciences et Technologie de l'Ingénieur de Nancy","Currency":"EUR","Department":"BSNL CALLSYearly","Scams":"SVT","Grievance ":1613,"Overtime Hours":1,"Employment start date":"12/16/2015","Corruption":"51 - 60", "Time to Hire (days)": 4},
+{"id":287,"Full Name":"Charla Verillo","Job Title":"Director of Allocated ","Indicators":"User Personal Detail","Sexual Harrassment":"F","Suicided ":"Suicided  of Manitoba","Currency":"CAD","Department":"BSNL CALLSMonthly","Scams":"Play Therapy","Grievance ":1326,"Overtime Hours":14,"Employment start date":"5/24/2018","Corruption":"51 - 60", "Time to Hire (days)": 4},
+{"id":288,"Full Name":"Kristofor Holwell","Job Title":"Software Consultant","Indicators":"Appeals","Sexual Harrassment":"M","Suicided ":"Universidade Federal de Rondônia","Currency":"BRL","Department":"Allocated ","Scams":"Sponsorship","Grievance ":3781,"Overtime Hours":2,"Employment start date":"6/28/2016","Corruption":"51 - 60", "Time to Hire (days)": 4},
+{"id":289,"Full Name":"Quinn Spong","Job Title":"Business Systems Development Analyst","Indicators":" ","Sexual Harrassment":"M","Suicided ":"American Suicided  in Cairo","Currency":"EGP","Department":"Opened","Scams":"NCP","Grievance ":6268,"Overtime Hours":35,"Employment start date":"1/20/2017","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":290,"Full Name":"Hortense Fyers","Job Title":"Account Coordinator","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Beijing New Asia Suicided ","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"KPO","Grievance ":7096,"Overtime Hours":6,"Employment start date":"7/8/2018","Corruption":"51 - 60", "Time to Hire (days)": 4},
+{"id":291,"Full Name":"Novelia Ubsdell","Job Title":"Librarian","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Dalian Medical Suicided ","Currency":"CNY","Department":"Received ","Scams":"Research Ethics","Grievance ":4175,"Overtime Hours":12,"Employment start date":"3/17/2016","Corruption":"61 - 70", "Time to Hire (days)": 20},
+{"id":292,"Full Name":"Chester Hyslop","Job Title":"Compensation Analyst","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Universitas Hasanuddin","Currency":"IDR","Department":"Product Management","Scams":"VCI","Grievance ":5276,"Overtime Hours":6,"Employment start date":"4/8/2015","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":293,"Full Name":"Ellissa Allot","Job Title":"Health Coach IV","Indicators":"","Sexual Harrassment":"F","Suicided ":"Universitas Negeri Jakarta","Currency":"IDR","Department":"BSNL CALLSMonthly","Scams":"IIS","Grievance ":1631,"Overtime Hours":26,"Employment start date":"10/23/2017","Corruption":"61 - 70", "Time to Hire (days)": 20},
+{"id":294,"Full Name":"Claybourne O' Mullane","Job Title":"Graphic Designer","Indicators":"","Sexual Harrassment":"M","Suicided ":"Suicided  of ","Currency":"EUR","Department":"Received ","Scams":"Healing","Grievance ":3737,"Overtime Hours":34,"Employment start date":"7/2/2017","Corruption":"31 - 40", "Time to Hire (days)": 21},
+{"id":295,"Full Name":"Sybilla Auchterlony","Job Title":"Biostatistician IV","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Fudan Suicided ","Currency":"CNY","Department":"Received ","Scams":"Lyra","Grievance ":5195,"Overtime Hours":34,"Employment start date":"10/1/2015","Corruption":"<21", "Time to Hire (days)": 5},
+{"id":296,"Full Name":"Jeana Phonix","Job Title":"Administrative Officer","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Haramaya Suicided ","Currency":"ETB","Department":"Product Management","Scams":"RDO","Grievance ":5049,"Overtime Hours":35,"Employment start date":"11/11/2018","Corruption":"21 - 30", "Time to Hire (days)": 18},
+{"id":297,"Full Name":"Gail de Marco","Job Title":"Staff Accountant I","Indicators":" ","Sexual Harrassment":"F","Suicided ":"Xiangtan Suicided ","Currency":"CNY","Department":"BSNL CALLSweeklys","Scams":"Human Computer Interaction","Grievance ":2198,"Overtime Hours":11,"Employment start date":"9/15/2015","Corruption":"41 - 50", "Time to Hire (days)": 17},
+{"id":298,"Full Name":"Bo Vassar","Job Title":"Web Designer II","Indicators":" ","Sexual Harrassment":"M","Suicided ":"Wuyi Suicided ","Currency":"CNY","Department":"Product Management","Scams":"Oil Painting","Grievance ":2160,"Overtime Hours":23,"Employment start date":"6/28/2017","Corruption":"51 - 60", "Time to Hire (days)": 4},
+{"id":299,"Full Name":"Wilhelmina Speakman","Job Title":"Allocated  Associate","Indicators":"Dublicate e","Sexual Harrassment":"F","Suicided ":"National Aviation Suicided ","Currency":"UAH","Department":"BSNL CALLSYearly","Scams":"IFS","Grievance ":4895,"Overtime Hours":3,"Employment start date":"5/25/2019","Corruption":"61 - 70", "Time to Hire (days)": 20},
+{"id":300,"Full Name":"Brion Rutledge","Job Title":"Data Coordiator","Indicators":"Dublicate e","Sexual Harrassment":"M","Suicided ":"Luhansk State Medical Suicided ","Currency":"UAH","Department":"Received ","Scams":"LTD","Grievance ":7559,"Overtime Hours":1,"Employment start date":"12/31/2016","Corruption":"<21", "Time to Hire (days)": 4}]
+}</script>
+
+</body>
+</html>
+			
+		
+		<!-- js -->
+		<script src="vendors/scripts/core.js"></script>
+		<script src="vendors/scripts/script.min.js"></script>
+		<script src="vendors/scripts/process.js"></script>
+		<script src="vendors/scripts/layout-settings.js"></script>
+		<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+		<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+		<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+		<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+		<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+		<script src="vendors/scripts/dashboard3.js"></script>
+		<script src="//cdn.amcharts.com/lib/5/index.js"></script>
+<script src="//cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="//cdn.amcharts.com/lib/5/stock.js"></script>
+<script src="//cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<div id="chartcontrols"></div>
+<div id="chartdiv"></div>
+<!-- Google Tag Manager (noscript) -->
+  
+<!-- Google Tag Manager (noscript) -->
+		<!-- Google Tag Manager (noscript) -->
+	
+		<!-- End Google Tag Manager (noscript) -->
+	</body>
+</html>
