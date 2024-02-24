@@ -12,6 +12,15 @@ Index3.html
 ![image](https://github.com/omsonawane39/Admin-Dashboard-UIUX/assets/98540552/657dc156-60fc-46d3-86b3-8fa214850dae)
 
 
-Participating in DARPG hacks indicates involvement in initiatives related to the Department of Administrative Reforms and Public Grievances (DARPG) in India, which often focus on leveraging technology to enhance governance, public service delivery, and citizen engagement. Developing UI/UX for such initiatives involves creating user interfaces and experiences that prioritize ease of use, accessibility, and effectiveness in addressing public grievances and improving administrative processes.
+Participating in DARPG hackthons indicates involvement in initiatives related to the Department of Administrative Reforms and Public Grievances (DARPG) in India, which often focus on leveraging technology to enhance governance, public service delivery, and citizen engagement. Developing UI/UX for such initiatives involves creating user interfaces and experiences that prioritize ease of use, accessibility, and effectiveness in addressing public grievances and improving administrative processes.
+
+How To Run This Prroject
+1. Open Download this Zip File
+2. Extract Zip file in Your PC
+3. Open Index1.html File and See the Project
+4. If you want to run the project in your PC, set the path of all the images and run it
+
+
+Thanks to our college for giving us time to do this work and the hod of our department helped us a lot
 
 
