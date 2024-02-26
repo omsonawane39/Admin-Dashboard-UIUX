@@ -1,6 +1,6 @@
 # Admin-Dashboard-UIUX
-Index1.html
-![01](https://github.com/omsonawane39/Admin-Dashboard-UIUX/assets/98540552/f109ae45-5049-4273-8fc3-08d24c39a093)
+Index.html
+![image](https://github.com/omsonawane39/Admin-Dashboard-UIUX/assets/98892470/55377bf9-472d-4497-98cf-3cf6d26a2d8d)
 
 SBIBK Index1.html
 ![image](https://github.com/omsonawane39/Admin-Dashboard-UIUX/assets/98540552/18aae366-60d4-4a46-bb32-8621ed67f271)
